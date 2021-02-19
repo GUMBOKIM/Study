@@ -29,6 +29,7 @@ footer, header, hgroup, menu, nav, section {
 	display: block;
 }
 body {
+	margin-top :
 	line-height: 1;
 }
 ol, ul {
@@ -49,4 +50,9 @@ table {
 
 input:focus{
 	outline: none;
+}
+
+a {
+	color:inherit;
+	text-decoration: none;
 }
