@@ -8,20 +8,12 @@
 						http://www.springframework.org/schema/context/spring-context.xsd"
 						>
 	
-	<!--  bean 클래스에 설정되어있는 어노테이션을 이요한다. -->
-	<context:annotation-config/>
+	<!--  지정된 패키지 안에 있는 bean 클래스 들의 어노테이션을 분석하도록 지정한다. -->
+	<context:component-scan base-package="beans2"/>
+	<context:component-scan base-package="beans3"/>
 	
-	<bean id='xml1' class='beans.TestBean1'>
-		<property name="data1" value='100'></property>
-	</bean>
-	
-	<bean class='beans.DataBean1'/>
-	
-	<bean id='obj4' class='beans.DataBean2'/>
-	<bean id='obj5' class='beans.DataBean2'/>
-	
+	<bean class='beans.TestBean1'/>
 	<bean id='xml2' class='beans.TestBean2'/>
+	<bean id='xml3' class='beans.TestBean2'/>
 	
-	<bean class='beans.DataBean3'/>
-	<bean class='beans.DataBean4'/>
 </beans>
