@@ -5,11 +5,25 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import beans.DataBean1;
 
 @Controller
+@SessionAttributes({"sessionBean1", "sessionBean2"})
 public class TestController {
+	
+	@ModelAttribute("sessionBean1")
+	public DataBean1 sessionBean1() {
+		return new DataBean1();
+	}
+	
+	@ModelAttribute("sessionBean2")
+	public DataBean1 sessionBean2() {
+		return new DataBean1();
+	}
 
 	@GetMapping("/test1")
 	//public String test1(HttpServletRequest request) {
@@ -51,7 +65,8 @@ public class TestController {
 	}
 	
 	@GetMapping("/test4")
-	public String test4(HttpSession session) {
+	 String test4(HttpSession session) {
+	//public String test4(@SessionAttribute("bean1") DataBean1 bean1) {
 		DataBean1 bean1 = new DataBean1();
 		bean1.setData1("문자열4");
 		bean1.setData2("문자열5");
@@ -62,12 +77,39 @@ public class TestController {
 	}
 	
 	@GetMapping("/result4")
-	public String result4(HttpSession session) {
-		DataBean1 bean1 = (DataBean1)session.getAttribute("bean1");
+	// public String result4(HttpSession session) {
+	public String result4(@SessionAttribute("bean1") DataBean1 bean1) {
+		// DataBean1 bean1 = (DataBean1)session.getAttribute("bean1");
 		
 		System.out.println("bean1.data1 : " + bean1.getData1());
 		System.out.println("bean1.data2 : " + bean1.getData2());
 		
 		return "result4";
+	}
+	
+	@GetMapping("/test5")
+	public String test5(@ModelAttribute("sessionBean1") DataBean1 sessionBean1,
+						@ModelAttribute("sessionBean2") DataBean1 sessionBean2
+			) {
+		
+		sessionBean1.setData1("문자열6");
+		sessionBean1.setData2("문자열7");
+		
+		sessionBean2.setData1("문자열8");
+		sessionBean2.setData2("문자열9");
+		
+		return "test5";
+	}
+	
+	@GetMapping("/result5")
+	public String result5(@ModelAttribute("sessionBean1") DataBean1 sessionBean1,
+						  @ModelAttribute("sessionBean2") DataBean1 sessionBean2) {
+		System.out.println("SessionBean1.data1 : " + sessionBean1.getData1());
+		System.out.println("SessionBean1.data2 : " + sessionBean1.getData2());
+		
+		System.out.println("SessionBean2.data1 : " + sessionBean2.getData1());
+		System.out.println("SessionBean2.data2 : " + sessionBean2.getData2());
+		
+		return "result5";
 	}
 }
