@@ -3,8 +3,11 @@
 	<name>Servers</name>
 	<comment></comment>
 	<projects>
+<<<<<<< HEAD
 		<project>21.RequestScopeBeanJava</project>
 		<project>21.RequestScopeBeanXml</project>
+=======
+>>>>>>> origin/main
 	</projects>
 	<buildSpec>
 	</buildSpec>

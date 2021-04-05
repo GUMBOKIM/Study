@@ -1,0 +1,76 @@
+.bg-light {
+  background-color: white !important;
+}
+.navbar-light .navbar-brand {
+  color: rgb(255, 210, 3) !important;
+}
+.ml-5 {
+  margin-left: 13.5rem !important;
+}
+.btn-outline-danger {
+  color: rgb(255, 210, 3);
+  border-color: rgb(255, 210, 3);
+}
+.btn-outline-danger:hover {
+  color: #fff;
+  background-color: rgb(255, 210, 3);
+  border-color: rgb(255, 210, 3);
+}
+.btn-outline-danger:focus,
+.btn-outline-danger.focus {
+  box-shadow: 0 0 0 0.2rem rgba(255, 210, 3, 0.5);
+}
+
+.btn-outline-danger:not(:disabled):not(.disabled):active,
+.btn-outline-danger:not(:disabled):not(.disabled).active,
+.show > .btn-outline-danger.dropdown-toggle {
+  color: #fff;
+  background-color: rgb(255, 210, 3);
+  border-color: rgb(255, 210, 3);
+}
+
+.btn-outline-danger:not(:disabled):not(.disabled):active:focus,
+.btn-outline-danger:not(:disabled):not(.disabled).active:focus,
+.show > .btn-outline-danger.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem rgba(255, 210, 3, 0.5);
+}
+
+.form-control:focus {
+  color: #495057;
+  background-color: #fff;
+  border-color: rgb(255, 210, 3);
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(255, 210, 3, 0.25);
+}
+
+.header-custom {
+  border: rgb(255, 210, 3) 1px solid;
+}
+
+.header-custom2 {
+  border-bottom: rgb(224, 224, 221) solid 1px;
+}
+
+.header-anchor-custom {
+  color: rgb(129, 119, 119);
+}
+
+.header-anchor-custom:hover {
+  color: rgb(97, 95, 95);
+}
+
+.header-img-custom {
+  width: 50px;
+  height: 50px;
+}
+
+.dropdown-item.active,
+.dropdown-item:active {
+  color: #fff;
+  text-decoration: none;
+  background-color: #495057;
+}
+
+body {
+  padding-top: 162px;
+}
