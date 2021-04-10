@@ -1,5 +1,6 @@
 package hello.jpashop.repository;
 
+import hello.jpashop.api.OrderSimpleApiController;
 import hello.jpashop.domain.Member;
 import hello.jpashop.domain.Order;
 import lombok.RequiredArgsConstructor;
@@ -83,4 +84,19 @@ public class OrderRepository {
         return query.getResultList();
     }
 
+    public List<Order> findAllWithMemberDelivery() {
+        return em.createQuery(
+                "select o from Order o " +
+                        "join fetch o.member m " +
+                        "join fetch o.delivery d ", Order.class
+        ).getResultList();
+    }
+
+    public List<SimpleOrderDto> findOrderDtos() {
+        return em.createQuery(
+                "select o from Order o" +
+                        " join o.member m" +
+                        " join o.delivery d ", SimpleOrderDto.class);
+        );
+    }
 }

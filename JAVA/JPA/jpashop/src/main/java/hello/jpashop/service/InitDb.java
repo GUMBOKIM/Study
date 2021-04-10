@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 
-@Component
 @RequiredArgsConstructor
 public class InitDb {
 
@@ -46,7 +45,6 @@ public class InitDb {
             em.persist(order);
 
         }
-
 
         private Book createBook(String bookName, int price, int stockQuantity) {
             Book book1 = new Book();

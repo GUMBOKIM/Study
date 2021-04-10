@@ -1,10 +1,10 @@
-package jpabook.jpashop;
+package mybatis.practice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class JpashopApplicationTests {
+class PracticeApplicationTests {
 
 	@Test
 	void contextLoads() {

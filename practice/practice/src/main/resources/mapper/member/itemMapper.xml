@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mybatis.practice.repository.mapper.ItemMapper">
+    <select id="getItem" resultType="mybatis.practice.dto.Item">
+        select ID      id,
+               USER_ID userId,
+               TITLE   title,
+               CONTENT content,
+               PRICE   price
+        from item
+    </select>
+    <insert id="insertItem" parameterType="mybatis.practice.dto.Item">
+        insert into item
+        values (item_seq.nextval,
+                #{userId},
+                #{title},
+                #{content},
+                #{price})
+    </insert>
+    <update id="updateItem" parameterType="mybatis.practice.dto.Item">
+        update item
+        set content = #{content},
+            price = #{price}
+        where title = #{title}
+
+    </update>
+
+    <delete id="deleteMember" parameterType="java.lang.String">
+        delete
+        from item
+        where title = #{title}
+    </delete>
+
+</mapper>
