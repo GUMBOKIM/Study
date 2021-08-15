@@ -1,10 +1,36 @@
+const dotenv = require('dotenv');
+dotenv.config;
+
 const express = require('express');
 const path = require('path');
-
+// Morgan - 요청과 응답의 상세 정보를 기록
+const morgan = require('morgan');
+// Cookie-Parser 쿠키를 파싱해줌
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
 const app = express();
 
 // 앱 설정
 app.set('port', process.env.PORT || 3000);
+
+app.use(morgan('dev'));
+app.use(cookieParser(process.env.COOKIE_SECRET));
+app.use(session({
+    resave: false,
+    saveUninitialized: false,
+    secret: process.env.COOKIE_SECRET,
+    cookie: {
+        httpOnly: true,
+    },
+    name: 'connect.sid'
+}))
+
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
+
+
+// app.use('요청경로', express.static(__dirname, '실제경로'))
+// app.use('/', express.static(__dirname, 'public-3030'))
 
 // 미들웨어
 app.use((req, res, next) => {
@@ -47,6 +73,15 @@ app.get('/same', (req, res) => {
     console.log('실행 된다');
 });
 
+app.get('/cookie', (req, res, next) => {
+    req.cookies
+    res.cookie('name', encodeURIComponent('이름입니다'), { 
+        expires: new Date(),
+        httpOnly: true,
+        path:'/cookie'
+    })
+})
+
 app.get('/error', (req, res) => {
     try {
         console.log(errororororor)
@@ -54,6 +89,7 @@ app.get('/error', (req, res) => {
         next(error);
     }
 });
+
 
 
 // 에러 미들웨어
