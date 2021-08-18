@@ -5,15 +5,18 @@
   "main": "app.js",
   "scripts": {
     "start": "nodemon app",
-    "test" : "jest"
+    "test": "jest",
+    "coverage": "jest --coverage"
   },
   "devDependencies": {
     "jest": "^27.0.6",
-    "nodemon": "^2.0.12"
+    "nodemon": "^2.0.12",
+    "supertest": "^6.1.6"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "artillery": "^1.7.6",
     "bcrypt": "^5.0.1",
     "cookie-parser": "^1.4.5",
     "dotenv": "^10.0.0",
