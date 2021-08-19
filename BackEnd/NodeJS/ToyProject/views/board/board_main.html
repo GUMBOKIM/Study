@@ -1,12 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    게시판 초기화면입니다.
-</body>
-</html>
+게시판 초기화면입니다.
+{% for board in boardList %}
+<br>
+<a href="/board/{{board.id}}">{{board.boardname}} 게시판</a>
+{% endfor %}
