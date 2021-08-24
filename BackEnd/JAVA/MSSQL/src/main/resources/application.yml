@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    url: jdbc:sqlserver://192.168.11.201:1433;databaseName=TESTDB
+    username: xingsoft
+    password: password
+
+server:
+  port: 8080

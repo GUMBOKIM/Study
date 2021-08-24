@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.board.mssql.mapper.ArticleMapper">
+    <resultMap id="articleList" type="articledto">
+        <id column="articleId" property="articleId"/>
+        <result column="userId" property="userId"/>
+        <result column="boardId" property="boardId"/>
+        <result column="title" property="title"/>
+        <result column="content" property="content"/>
+    </resultMap>
+
+    <select id="createArticle" parameterType="articledto" resultType="Long">
+        insert into ARTICLE(userId, boardId, title, content)
+        values (#{userId}, #{boardId}, #{title}, #{content})
+        select @@IDENTITY as SEQ
+    </select>
+
+    <update id="updateArticle" parameterType="articledto">
+        update ARTICLE
+        set title = #{title},
+            content = #{content}
+        where articleId = #{articleId}
+    </update>
+
+    <select id="findArticle" resultType="articledto">
+        select *
+        from ARTICLE
+        where articleId = #{articleId}
+    </select>
+
+    <delete id="deleteArticle">
+        delete
+        from ARTICLE
+        where articleId = #{articleId}
+    </delete>
+
+    <select id="findArticleList" resultMap="articleList">
+        select *
+        from ARTICLE
+    </select>
+</mapper>

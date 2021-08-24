@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="board_list">게시판 목록</div>
+
+</body>
+<script>
+    window.onload = function () {
+        function ajax() {
+
+            let httpRequest = new XMLHttpRequest();
+
+            httpRequest.open("GET", "/board/list");
+            httpRequest.send();
+
+            httpRequest.onreadystatechange = function () {
+                if (this.readyState === 4 && this.status === 200) {
+                    let resp = JSON.parse(this.responseText);
+                    createBoardList(resp.boardList);
+                }
+            }
+        };
+    }
+
+    function createBoardList(boardList) {
+
+        let parent = document.getElementById('board_list');
+
+        boardList.forEach(function (board) {
+
+            let anchor = document.createElement("a")
+            anchor.innerText = board.boardname;
+            anchor.setAttribute("href", "board/" + board.boardId);
+
+            parent.append(anchor)
+        });
+    }
+</script>
+</html>
