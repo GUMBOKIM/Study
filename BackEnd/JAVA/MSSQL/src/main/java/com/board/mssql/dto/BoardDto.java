@@ -12,5 +12,5 @@ import org.apache.ibatis.type.Alias;
 public class BoardDto {
 
     private Long boardId;
-    private String boardName;
+    private String name;
 }

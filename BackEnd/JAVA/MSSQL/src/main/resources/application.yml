@@ -4,6 +4,18 @@ spring:
     url: jdbc:sqlserver://192.168.11.201:1433;databaseName=TESTDB
     username: xingsoft
     password: password
+  servlet:
+    multipart:
+      max-file-size: 5MB
+
+file:
+  upload:
+    location:
 
 server:
-  port: 8080
+  port: 8000
+
+mybatis:
+  mapper-locations: classpath:/mapper/**/*.xml
+  type-aliases-package: com.board.mssql.**
+

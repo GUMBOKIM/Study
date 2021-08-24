@@ -8,41 +8,41 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RequiredArgsConstructor
 public class PageController {
 
-    @GetMapping("user/login")
+    @GetMapping("user/login_page")
     public String userLogin(){
 
         return "user/user_login";
     }
 
-    @GetMapping("user/join")
+    @GetMapping("user/join_page")
     public String userJoin(){
 
         return "user/user_join";
     }
 
-    @GetMapping("board/create")
+    @GetMapping("board/create_page")
     public String boardCreate() {
 
         return "board/board_create";
     }
 
-    @GetMapping("board/list")
+    @GetMapping("board/list_page")
     public String boardList() {
 
         return "board/board_list";
     }
 
-    @GetMapping("aticle/list")
+    @GetMapping("aticle/list_page")
     public String articleList(){
         return "article/article_list";
     }
 
-    @GetMapping("article/post")
+    @GetMapping("article/post_page")
     public String articlePost() {
         return "article/article_post";
     }
 
-    @GetMapping("article/article_read")
+    @GetMapping("article/article_page")
     public String articleRead(){
         return "article/article_read";
     }

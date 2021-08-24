@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.board.mssql.mapper.UserMapper">
+
+    <select id="createUser" parameterType="userdto" resultType="Long">
+        insert into [USER] (account, password)
+            values(#{account}, #{password})
+        select @@IDENTITY as SEQ
+    </select>
+
+    <update id="updateUser" parameterType="userdto">
+        update [USER] (account, password)
+            set account = #{account},
+                password = #{password},
+            where userId = #{userId}
+    </update>
+
+    <delete id="deleteUser">
+        delete from [USER] where userId = #{userId}
+    </delete>
+
+    <select id="loginUser" resultType="long">
+        select userId
+        from [USER]
+        where account = #{account} AND password = #{password}
+    </select>
+
+    <select id="findUserByAccount" resultType="userdto">
+        select userId,
+            account,
+            password
+        from [USER]
+        where account = #{account}
+    </select>
+
+    <select id="findUserByUserId" resultType="userdto">
+        select userId,
+               account,
+               password
+        from [USER]
+        where userId = #{userId}
+    </select>
+
+</mapper>

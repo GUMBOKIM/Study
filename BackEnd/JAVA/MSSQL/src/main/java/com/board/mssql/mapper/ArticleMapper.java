@@ -1,8 +1,8 @@
 package com.board.mssql.mapper;
 
 import com.board.mssql.dto.ArticleDto;
-import com.board.mssql.dto.BoardDto;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -10,9 +10,9 @@ import java.util.List;
 public interface ArticleMapper {
 
     Long createArticle(ArticleDto articleDto);
-    Long updateArticle(ArticleDto articleDto);
-    Long findArticle(ArticleDto articleDto);
-    void deleteArticle(ArticleDto articleDto);
+    void updateArticle(ArticleDto articleDto);
+    ArticleDto findArticle(ArticleDto articleDto);
+    void deleteArticle(@Param("articleId") Long articleId);
 
     List<ArticleDto> findArticleList();
 }

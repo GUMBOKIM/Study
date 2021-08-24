@@ -1,2 +1,4 @@
-package com.board.mssql.dto;public class FileDto {
+package com.board.mssql.dto;
+
+public class FileDto {
 }

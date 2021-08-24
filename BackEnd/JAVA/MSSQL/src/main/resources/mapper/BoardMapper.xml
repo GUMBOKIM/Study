@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.board.mssql.mapper.BoardMapper">
+
+    <resultMap id="boardList" type="boarddto">
+        <id column="boardId" property="boardId"/>
+        <result column="name" property="name"/>
+    </resultMap>
+
+    <insert id="createBoard">
+        insert into BOARD (name)
+        values(#{name})
+    </insert>
+
+    <update id="updateBoard" parameterType="boarddto">
+        update BOARD
+        set name = #{name},
+        where boardId = #{boardId}
+    </update>
+
+    <select id="findBoard" resultType="boarddto">
+        select *
+        from BOARD
+        where boardId = #{boardId}
+    </select>
+
+    <delete id="deleteBoard">
+        delete from BOARD where boardId = #{boardId}
+    </delete>
+
+    <select id="findBoardList" resultMap="boardList">
+        select *
+        from BOARD
+    </select>
+</mapper>
