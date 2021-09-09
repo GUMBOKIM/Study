@@ -7,7 +7,7 @@ const __dirname = path.resolve();
 
 const slackUrl =
   'https://hooks.slack.com/services/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';
-const sendTarget = '@' + encodeURIComponent('asdddd');
+const sendTarget = '@' + encodeURIComponent('jino');
 
 const sendSlack = function async(sendTarget, sendMessage) {
   const data = {

@@ -37,9 +37,6 @@ async function findConversation(name) {
   }
 }
 
-// Find conversation with a specified channel `name`
-findConversation();
-
 // 채널 이름으로 찾음
 async function publishMessage(id, text) {
   try {
@@ -76,3 +73,21 @@ async function publishDirectMessage(id, text) {
     console.error(error);
   }
 }
+
+async function getUserIDlist() {
+  try {
+    // Call the chat.postMessage method using the built-in WebClient
+    const result = await client.users.identity({
+      // The token you used to initialize your app
+      token: 'xoxb-2432907671639-2452854131587-VrZM2rGLPXbH8JnKchWMs8NR',
+      // You could also use a blocks[] array to send richer content
+    });
+
+    // Print result, which includes information about the message (like TS)
+    console.log(result);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+getUserIDlist();
