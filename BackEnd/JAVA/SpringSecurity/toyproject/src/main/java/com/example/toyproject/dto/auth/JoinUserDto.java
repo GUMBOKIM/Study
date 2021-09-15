@@ -8,8 +8,8 @@ import org.apache.ibatis.type.Alias;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Alias("UserDto")
-public class UserDto {
+@Alias("JoinUser")
+public class JoinUserDto {
 
     private String account;
     private String password;
@@ -17,3 +17,4 @@ public class UserDto {
     private String nickName;
 
 }
+

@@ -10,13 +10,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/auth")
 public class AuthController {
     private final TokenProvider tokenProvider;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
@@ -29,13 +26,8 @@ public class AuthController {
         this.authMapper = authMapper;
     }
 
-    @PostMapping("/authenticate")
-    public ResponseEntity<TokenDto> authorize(@RequestBody LoginDto loginDto) {
-
-        System.out.println("A:" + loginDto.getAccount() + "    P:" + loginDto.getPassword());
-        UserDto userDto = authMapper.findOneByUsername(loginDto.getAccount());
-        System.out.println("A: "+userDto.getAccount() +"  P: "+ userDto.getPassword() + "  G: "+ userDto.getUserGroup());
-
+    @PostMapping("/login")
+    public ResponseEntity<TokenDto> login(@RequestBody LoginDto loginDto) {
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(loginDto.getAccount(), loginDto.getPassword());
 
@@ -49,4 +41,16 @@ public class AuthController {
 
         return new ResponseEntity<>(new TokenDto(jwt), httpHeaders, HttpStatus.OK);
     }
+
+
+    // JWT
+    // 1. 토큰이 유효한지
+    // 2. 유효한 상태에서 로그아웃을 시도했는지
+    //
+    @GetMapping("/logout")
+    public ResponseEntity logout() {
+
+        return new ResponseEntity<>("Logout Success", HttpStatus.OK);
+    }
+
 }

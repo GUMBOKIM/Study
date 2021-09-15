@@ -6,10 +6,38 @@
     <select id="findOneByUsername" parameterType="String" resultType="UserDto">
         SELECT u.account AS account,
                u.password AS password,
-               g.group_no AS userGroup
-        FROM TESTDB.test.userss AS u
-                 INNER JOIN TESTDB.test.groupss AS g
+               u.nickName AS nickName,
+               g.group_name AS userGroup
+        FROM TESTDB.test.users AS u
+                 INNER JOIN TESTDB.test.groups AS g
                             ON u.user_group = g.group_no
         WHERE u.account = #{account}
     </select>
+
+    <select id="findOneByUserId" resultType="UserDto">
+        SELECT u.account AS account,
+               u.password AS password,
+               u.nickName AS nickName,
+               g.group_name AS userGroup
+        FROM TESTDB.test.users AS u
+                 INNER JOIN TESTDB.test.groups AS g
+                            ON u.user_group = g.group_no
+        WHERE u.user_no = #{userNo}
+    </select>
+
+    <resultMap id="groupUrlList" type="authMapDto">
+        <result column="userGroup" property="userGroup"/>
+        <result column="url" property="url"/>
+    </resultMap>
+
+    <select id="findGroupUrlMap" resultMap="groupUrlList">
+        SELECT g.group_name AS userGroup,
+               a.url AS url
+        FROM TESTDB.test.groups AS g
+        INNER JOIN TESTDB.test.authmap AS a
+        ON a.groupNo = g.group_no
+    </select>
+
+
+
 </mapper>
