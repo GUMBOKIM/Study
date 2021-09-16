@@ -44,19 +44,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         /* (3) */
         http.headers()
                 .cacheControl().disable()
-                .frameOptions().sameOrigin()
-                .httpStrictTransportSecurity().disable();
+                .frameOptions().sameOrigin();
 
         /* (4) */
         http.authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers("/login/**").permitAll()
-                .antMatchers("/signup/**").permitAll()
+                .antMatchers("/api/auth/**").permitAll()
                 .antMatchers("/resources/**").permitAll()
+                .antMatchers("/path/guest/**").permitAll()
                 .anyRequest().authenticated();
 
         /* (5) */
-        http.logout().logoutUrl("/logout").permitAll()
+        http.logout().logoutUrl("/api/auth/logout").permitAll()
                 .deleteCookies("JSESSIONID")
                 .deleteCookies(HEADER_NAME)
                 .logoutSuccessUrl("/")

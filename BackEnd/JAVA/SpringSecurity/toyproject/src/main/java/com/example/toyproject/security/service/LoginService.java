@@ -3,25 +3,36 @@ package com.example.toyproject.security.service;
 import com.example.toyproject.mapper.auth.AuthMapper;
 import com.example.toyproject.security.model.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-@Service
+import java.util.ArrayList;
+import java.util.List;
+
+@Component("LoginService")
 public class LoginService implements UserDetailsService {
 
-    @Autowired
     private AuthMapper authMapper;
+
+    public LoginService(AuthMapper auth){
+        this.authMapper = auth;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserModel resMemberModel = (UserModel) authMapper.findOneByUsername(username);
+        UserModel res = authMapper.findOneByUsername(username);
 
-        if (resMemberModel == null) {
+        if (res == null) {
             throw new UsernameNotFoundException("ID : '" + username + "' not found");
         }
-        return resMemberModel;
+
+        return new User(res.getUsername(), res.getPassword(), res.getAuthorities());
     }
 
 }

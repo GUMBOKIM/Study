@@ -52,6 +52,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
             log.error("JWT expired error : {} ", e);
         } catch (Exception e) {
+            System.out.println(e);
             SecurityContextHolder.clearContext();
             log.error("JWT filter internal error : {} ", e);
             return;
@@ -86,8 +87,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
         Collection<String> excludeUrlPatterns = new LinkedHashSet<>();
-        excludeUrlPatterns.add("/login/**");
-        excludeUrlPatterns.add("/logout/**");
+        excludeUrlPatterns.add("/api/auth/**");
         excludeUrlPatterns.add("/signup/**");
         excludeUrlPatterns.add("/resources/**");
 

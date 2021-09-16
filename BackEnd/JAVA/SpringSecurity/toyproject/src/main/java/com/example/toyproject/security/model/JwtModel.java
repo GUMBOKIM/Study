@@ -17,6 +17,4 @@ public class JwtModel implements Serializable {
 
     private String accessToken;
     private String accessTokenExpirationDate;
-    private String refreshToken;
-    private String refreshTokenExpirationDate;
 }

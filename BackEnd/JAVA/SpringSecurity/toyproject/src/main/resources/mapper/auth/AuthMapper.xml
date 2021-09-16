@@ -3,7 +3,7 @@
 
 <mapper namespace="com.example.toyproject.mapper.auth.AuthMapper">
 
-    <select id="findOneByUsername" parameterType="String" resultType="UserDto">
+    <select id="findOneByUsername" parameterType="String" resultType="UserModel">
         SELECT u.account AS account,
                u.password AS password,
                u.nickName AS nickName,

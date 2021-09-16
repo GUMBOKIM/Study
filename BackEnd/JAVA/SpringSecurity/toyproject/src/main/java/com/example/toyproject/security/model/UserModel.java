@@ -1,19 +1,21 @@
 package com.example.toyproject.security.model;
 
-import com.example.toyproject.dto.auth.UserDto;
 import lombok.*;
+import org.apache.ibatis.type.Alias;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
 import java.util.*;
 
+@Alias("UserModel")
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserModel extends UserDto implements Serializable, UserDetails {
+public class UserModel implements Serializable, UserDetails {
 
     private String account;
     private String password;
@@ -22,9 +24,9 @@ public class UserModel extends UserDto implements Serializable, UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        ArrayList authority = new ArrayList();
-        authority.add(userGroup);
-        return authority;
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority(this.getUserGroup()));
+        return authorities;
     }
 
     @Override

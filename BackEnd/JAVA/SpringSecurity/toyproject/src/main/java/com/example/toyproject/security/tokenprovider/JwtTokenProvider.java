@@ -50,7 +50,7 @@ public class JwtTokenProvider {
 
     /**
      * 토큰 생성
-     * @param username
+     * @param authentication
      * @return
      */
     public JwtModel createToken(Authentication authentication) {
@@ -63,13 +63,13 @@ public class JwtTokenProvider {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         Date accessDate = new Date(now.getTime() + ACCESS_VALIDITY_IN_MILLISECONDS);
-        Date refreshDate = new Date(now.getTime() + REFRESH_VALIDITY_IN_MILLISECONDS);
+//        Date refreshDate = new Date(now.getTime() + REFRESH_VALIDITY_IN_MILLISECONDS);
 
         return JwtModel.builder()
                 .accessToken(this.generateToken(claims, now, accessDate))
-                .refreshToken(this.generateToken(claims, now, refreshDate))
+//                .refreshToken(this.generateToken(claims, now, refreshDate))
                 .accessTokenExpirationDate(sdf.format(accessDate))
-                .refreshTokenExpirationDate(sdf.format(refreshDate))
+//                .refreshTokenExpirationDate(sdf.format(refreshDate))
                 .build();
     }
 

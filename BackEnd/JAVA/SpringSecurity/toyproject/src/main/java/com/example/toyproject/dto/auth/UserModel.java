@@ -5,11 +5,10 @@ import org.apache.ibatis.type.Alias;
 
 @Getter
 @Setter
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Alias("UserDto")
-public class UserDto  {
+public class UserModel {
 
     private String account;
     private String password;

@@ -1,7 +1,8 @@
 package com.example.toyproject.controller.auth;
 
-import com.example.toyproject.dto.auth.UserDto;
+
 import com.example.toyproject.mapper.auth.AuthMapper;
+import com.example.toyproject.security.model.UserModel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +27,7 @@ public class PathController {
     @PreAuthorize("hasAnyRole('USER')")
     public ResponseEntity findOneByUser(@PathVariable("userName") String userName) {
         System.out.println(userName);
-        UserDto userDto = authMapper.findOneByUsername(userName);
+        UserModel userDto = authMapper.findOneByUsername(userName);
         System.out.println("매퍼 끝");
         if (userDto.getAccount() == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -39,7 +40,7 @@ public class PathController {
     @PreAuthorize("hasAnyRole('MANAGER','ADMIN')")
     public ResponseEntity findOneByManagerAndAdmin(@PathVariable("userName") String userName) {
         System.out.println(userName);
-        UserDto userDto = authMapper.findOneByUsername(userName);
+        UserModel userDto = authMapper.findOneByUsername(userName);
         if (userDto.getAccount() == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
@@ -50,7 +51,7 @@ public class PathController {
     @PreAuthorize("permitAll")
     @GetMapping("/all/myself")
     public ResponseEntity findOneByManagerAndAdmin(@AuthenticationPrincipal User user) {
-        UserDto userDto = authMapper.findOneByUsername(user.getUsername());
+        UserModel userDto = authMapper.findOneByUsername(user.getUsername());
         if (userDto.getAccount() == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
