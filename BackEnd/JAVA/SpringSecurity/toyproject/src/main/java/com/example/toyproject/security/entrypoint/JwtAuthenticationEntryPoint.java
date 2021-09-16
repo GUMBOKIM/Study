@@ -1,4 +1,4 @@
-package com.example.toyproject.jwt;
+package com.example.toyproject.security.entrypoint;
 
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;

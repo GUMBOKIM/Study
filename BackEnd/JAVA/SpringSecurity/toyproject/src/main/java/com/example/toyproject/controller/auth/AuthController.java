@@ -3,6 +3,9 @@ package com.example.toyproject.controller.auth;
 import com.example.toyproject.jwt.*;
 import com.example.toyproject.dto.auth.*;
 import com.example.toyproject.mapper.auth.AuthMapper;
+import com.example.toyproject.security.filter.JwtTokenFilter;
+import com.example.toyproject.security.model.JwtModel;
+import com.example.toyproject.security.tokenprovider.JwtTokenProvider;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,12 +18,12 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
-    private final TokenProvider tokenProvider;
+    private final JwtTokenProvider tokenProvider;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
 
     private final AuthMapper authMapper;
 
-    public AuthController(TokenProvider tokenProvider, AuthenticationManagerBuilder authenticationManagerBuilder, AuthMapper authMapper) {
+    public AuthController(JwtTokenProvider tokenProvider, AuthenticationManagerBuilder authenticationManagerBuilder, AuthMapper authMapper) {
         this.tokenProvider = tokenProvider;
         this.authenticationManagerBuilder = authenticationManagerBuilder;
         this.authMapper = authMapper;
@@ -34,23 +37,13 @@ public class AuthController {
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        String jwt = tokenProvider.createToken(authentication);
+        JwtModel jwtModel = tokenProvider.createToken(authentication);
 
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add(JwtFilter.AUTHORIZATION_HEADER, "Bearer " + jwt);
+        httpHeaders.add(JwtTokenFilter.AUTHORIZATION_HEADER, "Bearer " + jwt);
 
         return new ResponseEntity<>(new TokenDto(jwt), httpHeaders, HttpStatus.OK);
     }
 
-
-    // JWT
-    // 1. 토큰이 유효한지
-    // 2. 유효한 상태에서 로그아웃을 시도했는지
-    //
-    @GetMapping("/logout")
-    public ResponseEntity logout() {
-
-        return new ResponseEntity<>("Logout Success", HttpStatus.OK);
-    }
 
 }

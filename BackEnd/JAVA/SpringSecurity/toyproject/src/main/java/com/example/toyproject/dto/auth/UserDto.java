@@ -9,7 +9,7 @@ import org.apache.ibatis.type.Alias;
 @AllArgsConstructor
 @NoArgsConstructor
 @Alias("UserDto")
-public class UserDto {
+public class UserDto  {
 
     private String account;
     private String password;

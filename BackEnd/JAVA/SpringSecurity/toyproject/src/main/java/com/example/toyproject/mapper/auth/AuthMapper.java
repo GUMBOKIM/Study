@@ -5,7 +5,6 @@ import com.example.toyproject.dto.auth.AuthMapDto;
 import com.example.toyproject.dto.auth.UserDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.util.List;
 

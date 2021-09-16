@@ -3,7 +3,6 @@ package com.example.toyproject.controller.auth;
 import com.example.toyproject.dto.auth.UserDto;
 import com.example.toyproject.mapper.auth.AuthMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
