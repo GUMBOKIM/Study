@@ -5,6 +5,7 @@ import com.example.toyproject.security.filter.JwtTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -17,6 +18,7 @@ import org.springframework.security.web.firewall.DefaultHttpFirewall;
 import org.springframework.security.web.firewall.HttpFirewall;
 
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     /* (1) */
@@ -48,20 +50,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         /* (4) */
         http.authorizeRequests()
-                .antMatchers("/").permitAll()
-                .antMatchers("/api/auth/**").permitAll()
-                .antMatchers("/resources/**").permitAll()
-                .antMatchers("/path/guest/**").permitAll()
+                .antMatchers("/user/**").permitAll()
+                .antMatchers("/home/guest/**").permitAll()
                 .anyRequest().authenticated();
 
-        /* (5) */
         http.logout().logoutUrl("/api/auth/logout").permitAll()
                 .deleteCookies("JSESSIONID")
                 .deleteCookies(HEADER_NAME)
-                .logoutSuccessUrl("/")
+                .logoutSuccessUrl("/api/auth/login")
                 .invalidateHttpSession(true);
 
-        /* (6) */
         http.exceptionHandling()
                 .authenticationEntryPoint(jwtAuthenticationEntryPoint);
 

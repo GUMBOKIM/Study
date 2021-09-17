@@ -1,11 +1,8 @@
 package com.example.toyproject.security.filter;
 
-import com.example.toyproject.mapper.auth.AuthMapper;
-import com.example.toyproject.security.model.UserModel;
 import com.example.toyproject.security.tokenprovider.JwtTokenProvider;
 import io.jsonwebtoken.ExpiredJwtException;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -29,12 +26,10 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     private JwtTokenProvider jwtTokenProvider;
 
     @Override
-    protected void doFilterInternal(
-            HttpServletRequest request, HttpServletResponse response,
+    protected void doFilterInternal( HttpServletRequest request, HttpServletResponse response,
             FilterChain filterChain) throws ServletException, IOException {
-        String accessToken = jwtTokenProvider.resolveCookie(request);
-//        String refreshToken = null;
 
+        String accessToken = jwtTokenProvider.resolveCookie(request);
         // access 토큰 검증 과정
         try {
             if (StringUtils.isNotBlank(accessToken) && jwtTokenProvider.validateToken(accessToken)) {

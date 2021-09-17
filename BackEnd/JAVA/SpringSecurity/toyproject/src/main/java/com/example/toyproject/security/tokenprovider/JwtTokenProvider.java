@@ -55,8 +55,8 @@ public class JwtTokenProvider {
      */
     public JwtModel createToken(Authentication authentication) {
         Map<String, Object> claims = new HashMap<>();
-        claims.put("sub", authentication.getName());
-        claims.put("sub", authentication.getAuthorities());
+        claims.put("accountId", authentication.getName());
+        claims.put("rollgroup", authentication.getAuthorities());
         claims.put("sub", authentication.getDetails());
 
         Date now = new Date();
@@ -162,7 +162,7 @@ public class JwtTokenProvider {
      * @return
      */
     public Authentication getAuthentication(String token) {
-        UserDetails userDetails = loginService.loadUserByUsername(this.getClaims(token, "sub"));
+        UserDetails userDetails = loginService.loadUserByUsername(this.getClaims(token, "accountId"));
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 

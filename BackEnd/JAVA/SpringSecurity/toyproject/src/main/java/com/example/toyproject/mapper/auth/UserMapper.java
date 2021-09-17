@@ -9,11 +9,9 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 @Mapper
-public interface AuthMapper {
+public interface UserMapper {
 
     com.example.toyproject.security.model.UserModel findOneByUsername(@Param("account") String account);
-
     UserModel findOneByUserId(@Param("userNo") Long userNo);
-
     List<AuthMapDto> findGroupUrlMap();
 }

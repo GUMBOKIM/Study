@@ -1,7 +1,7 @@
 package com.example.toyproject.controller.auth;
 
 
-import com.example.toyproject.mapper.auth.AuthMapper;
+import com.example.toyproject.mapper.auth.UserMapper;
 import com.example.toyproject.security.model.UserModel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -12,11 +12,11 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/path")
+@RequestMapping("/home")
 @RequiredArgsConstructor
-public class PathController {
+public class HomeController {
 
-    private final AuthMapper authMapper;
+    private final UserMapper authMapper;
 
     @GetMapping("/guest/board")
     public String getGuestBoard() {
@@ -26,9 +26,8 @@ public class PathController {
     @GetMapping("/user/{userName}")
     @PreAuthorize("hasAnyRole('USER')")
     public ResponseEntity findOneByUser(@PathVariable("userName") String userName) {
-        System.out.println(userName);
         UserModel userDto = authMapper.findOneByUsername(userName);
-        System.out.println("매퍼 끝");
+
         if (userDto.getAccount() == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
@@ -39,8 +38,8 @@ public class PathController {
     @GetMapping("/manager/{userName}")
     @PreAuthorize("hasAnyRole('MANAGER','ADMIN')")
     public ResponseEntity findOneByManagerAndAdmin(@PathVariable("userName") String userName) {
-        System.out.println(userName);
         UserModel userDto = authMapper.findOneByUsername(userName);
+
         if (userDto.getAccount() == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
@@ -51,6 +50,7 @@ public class PathController {
     @PreAuthorize("permitAll")
     @GetMapping("/all/myself")
     public ResponseEntity findOneByManagerAndAdmin(@AuthenticationPrincipal User user) {
+
         UserModel userDto = authMapper.findOneByUsername(user.getUsername());
         if (userDto.getAccount() == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

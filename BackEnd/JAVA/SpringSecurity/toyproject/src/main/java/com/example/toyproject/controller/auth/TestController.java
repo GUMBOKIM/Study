@@ -1,7 +1,7 @@
 package com.example.toyproject.controller.auth;
 
 import com.example.toyproject.dto.auth.AuthMapDto;
-import com.example.toyproject.mapper.auth.AuthMapper;
+import com.example.toyproject.mapper.auth.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TestController {
 
-    private final AuthMapper authMapper;
+    private final UserMapper authMapper;
 
     @GetMapping("/test")
     public String QueryTester() {
