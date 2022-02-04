@@ -1,56 +1,60 @@
 package kopring.start.controller.get
 
-import kopring.start.dto.UserRequest
-import org.springframework.http.ResponseEntity
+import kopring.start.model.http.UserRequest
 import org.springframework.web.bind.annotation.*
 
-@RestController
-@RequestMapping("/api")
+@RestController             // REST API Controller 동작
+@RequestMapping("/api") // http://localhost:8080/api
 class GetApiController {
 
-    @GetMapping("/hello") // GET http://localhost:8080/hello
-    fun hello(): String {
+    @GetMapping(path = ["/hello","/abcd"])   // GET http://localhost:8080/api/hello , GET http://localhost:8080/api/abcd
+    fun hello(): String{
         return "hello kotlin"
     }
 
     @RequestMapping(method = [RequestMethod.GET], path = ["/request-mapping"])
     fun requestMapping(): String {
-        return "request mapping"
+        return "request-mapping"
     }
 
-    @GetMapping("/path/{name}/{age}")
-    fun pathVariable(@PathVariable name: String, @PathVariable age: Int): String {
-        println("name = $name")
-        println("age = $age")
-        return name
+    @GetMapping("/get-mapping/path-variable/{name}/{age}") // GET http://localhost:8080/api/get-mapping/path-variable/steve
+    fun pathVariable(@PathVariable name: String, @PathVariable age:Int): String{
+        println("${name} , ${age}")
+        return name+" "+age
     }
 
-    @GetMapping("/res-entity")
-    fun returnRequestEntity(): ResponseEntity<String> {
-        return ResponseEntity.ok("okok");
+    @GetMapping("/get-mapping/path-variable2/{name}/{age}") // GET http://localhost:8080/api/get-mapping/path-variable/steve
+    fun pathVariable2(@PathVariable(value = "name") _name: String, @PathVariable(name = "age") age:Int): String{
+        val name = "kotlin"
+        println("${_name} , ${age}")
+        return _name+" "+age
     }
 
-    @GetMapping("/query") // name = 김대희, age = 30
+    // htts://localhost:8080/api/page?key=value&key=value&key=value
+    @GetMapping("/get-mapping/query-param") // ?name=steve&age=20
     fun queryParam(
-        @RequestParam name: String,
-        @RequestParam age: Int
-    ): String {
-        println("name = $name")
-        println("age = $age")
-        return name
+            @RequestParam(name = "name") name: String,
+            @RequestParam(value = "age") age:Int
+    ): String{
+        println("${name} , ${age}")
+        return name+" "+age
     }
 
-    @GetMapping("/query-object")
-    fun queryObjectParam(queryDto: UserRequest): UserRequest {
-        println(queryDto)
-        return queryDto
+    // name, age, address, email
+    // -
+    // phoneNumber -> phonenumber , phone-number
+    @GetMapping("/get-mapping/query-param/object")
+    fun queryParamObject(userRequest: UserRequest): UserRequest {
+        println(userRequest)
+        return userRequest
     }
 
-    @GetMapping("/query-map")
-    fun queryMapParam(@RequestParam map: Map<String, Any>): Map<String, Any> {
+
+    @GetMapping("/get-mapping/query-param/map")
+    fun queryParamMap(@RequestParam map: Map<String,Any>): Map<String, Any> {
         println(map)
+        val phoneNumber = map.get("phone-number")
         return map
     }
-
 
 }

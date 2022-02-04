@@ -1,7 +1,8 @@
-package kopring.start.exception
+package kopring.start.controller.exception
 
-import kopring.start.dto.ErrorResponse
-import kopring.start.dto.UserRequest
+import kopring.start.model.http.Error
+import kopring.start.model.http.ErrorResponse
+import kopring.start.model.http.UserRequest
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.FieldError
@@ -16,27 +17,26 @@ import javax.validation.constraints.Min
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.Size
 
-
 @RestController
 @RequestMapping("/api/exception")
 @Validated
 class ExceptionApiController {
 
     @GetMapping("/hello")
-    fun hello(): String {
-//        val list = mutableListOf<String>()
-//        val temp = list[0]
+    fun hello(): String{
+        val list = mutableListOf<String>()
+        //val temp = list[0]
         return "hello"
     }
 
     @GetMapping("")
     fun get(
-        @NotBlank
-        @Size(min = 2, max = 6)
-        @RequestParam name:String,
+            @NotBlank
+            @Size(min = 2, max = 6)
+            @RequestParam name:String,
 
-        @Min(10)
-        @RequestParam age: Int
+            @Min(10)
+            @RequestParam age: Int
     ): String{
         println(name)
         println(age)
@@ -52,10 +52,10 @@ class ExceptionApiController {
 
     @ExceptionHandler(value = [MethodArgumentNotValidException::class])
     fun methodArgumentNotValidException(e: MethodArgumentNotValidException, request: HttpServletRequest): ResponseEntity<ErrorResponse> {
-        val errors = mutableListOf<kopring.start.dto.Error>()
+        val errors = mutableListOf<Error>()
 
         e.bindingResult.allErrors.forEach { errorObject ->
-            val error = kopring.start.dto.Error().apply {
+            val error = Error().apply {
 
                 this.field = (errorObject as FieldError).field
                 this.message = errorObject.defaultMessage
@@ -81,10 +81,10 @@ class ExceptionApiController {
 
     @ExceptionHandler(value = [ConstraintViolationException::class])
     fun constraintViolationException(e: ConstraintViolationException, request: HttpServletRequest): ResponseEntity<ErrorResponse>{
-        val errors = mutableListOf<kopring.start.dto.Error>()
+        val errors = mutableListOf<Error>()
 
         e.constraintViolations.forEach {
-            val error = kopring.start.dto.Error().apply {
+            val error = Error().apply {
                 this.field = it.propertyPath.last().name
                 this.message = it.message
                 this.value = it.invalidValue
@@ -107,11 +107,11 @@ class ExceptionApiController {
         // 3. ResponseEntity
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse)
     }
-/*
+
 
     @ExceptionHandler(value = [IndexOutOfBoundsException::class])
     fun indexOutOfBoundsException(e: IndexOutOfBoundsException): ResponseEntity<String> {    // 200 OK
         println("controller exception handler")
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Index Error")
-    }*/
+    }
 }
