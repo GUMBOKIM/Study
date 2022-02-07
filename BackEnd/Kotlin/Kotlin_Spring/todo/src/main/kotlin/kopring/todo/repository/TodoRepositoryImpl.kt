@@ -33,18 +33,14 @@ class TodoRepositoryImpl : TodoRepository {
     }
 
     override fun update(todo: Todo): Todo {
-        TODO("Not yet implemented")
     }
 
     override fun delete(index: Int): Boolean {
-        TODO("Not yet implemented")
     }
 
     override fun findOne(index: Int): Todo {
-        TODO("Not yet implemented")
     }
 
     override fun findAll(): MutableList<Todo> {
-        TODO("Not yet implemented")
     }
 }
