@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>Test.Sonata</OriginalElement>
+  <nodes>
+    <node x="15.5" y="307.0">Test.Sonata</node>
+    <node x="0.0" y="130.0">Test.Car</node>
+    <node x="15.5" y="0.0">Test.Engine</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="Test.Sonata" target="Test.Car" relationship="GENERALIZATION">
+      <point x="0.0" y="-40.0" />
+      <point x="0.0" y="63.5" />
+    </edge>
+    <edge source="Test.Car" target="Test.Engine" relationship="REALIZATION">
+      <point x="0.0" y="-63.5" />
+      <point x="0.0" y="40.0" />
+    </edge>
+  </edges>
+  <settings layout="계층" zoom="1.0" showDependencies="false" x="77.0" y="193.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>메서드</Category>
+    <Category>필드</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>public</VISIBILITY>
+</Diagram>
+

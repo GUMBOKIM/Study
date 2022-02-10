@@ -1,0 +1,23 @@
+@startuml
+abstract class Car implements Engine{
+    CarMaker carMaker;
+    int weight
+
+    abstract void beep();
+}
+
+interface Engine{
+    void turnOn();
+    void turnOff();
+}
+
+class Sonata extends Car
+
+Car <-- CarMaker
+
+enum CarMaker{
+    HYUNDAI
+    KIA
+}
+
+@enduml
