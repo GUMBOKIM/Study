@@ -1,54 +1,46 @@
 package level1;
 
+import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class 다트게임 {
 
-    static int multi(String kind) {
+    static int powConvert(String kind) {
         if (kind.equals("S")) return 1;
         else if (kind.equals("D")) return 2;
         else return 3;
     }
 
+    static int prizeConvert(String kind) {
+        if (kind.equals("*")) return 2;
+        else if (kind.equals("#")) return -1;
+        else return 1;
+    }
+
     public static int solution(String dartResult) {
         int answer = 0;
 
-        int[] score_arr = {0, 0, 0};
-        int[] multi_arr = {1, 1, 1};
-        int[] bonus_arr = {1, 1, 1};
+        int[] score_arr = new int[3];
+        int[] pow_arr =  new int[3];
+        int[] prize_arr =  new int[3];
 
         //숫자 찾기
-        Pattern pattern = Pattern.compile("([0-9]+)");
+        Pattern pattern = Pattern.compile("([0-9]+)([SDT])([*#]?)");
         Matcher matcher = pattern.matcher(dartResult);
-
         int idx = 0;
         while (matcher.find()) {
-            score_arr[idx] = Integer.parseInt(matcher.group());
+            score_arr[idx] = Integer.parseInt(matcher.group(1));
+            pow_arr[idx] = powConvert(matcher.group(2));
+            int prize_bonus = prizeConvert(matcher.group(3));
+            prize_arr[idx] = prize_bonus;
+            if(prize_bonus == 2 && idx != 0){
+                prize_arr[idx - 1] *= 2;
+            }
             idx++;
         }
 
-        String[] split = dartResult.split("([0-9]+)");
-        for (int i = 0; i < 3; i++) {
-            String temp = split[i + 1];
-            multi_arr[i] = multi(temp.substring(0, 1));
-            if (temp.length() == 2) {
-                String bonus = temp.substring(1, 2);
-                if (bonus.equals("*")) {
-                    if (i == 0) {
-                        bonus_arr[i] *= 2;
-                    } else {
-                        bonus_arr[i] *= 2;
-                        bonus_arr[i - 1] *= 2;
-                    }
-                } else {
-                    bonus_arr[i] *= -1;
-                }
-            }
-        }
-
-        for (int i = 0; i < 3; i++) answer += Math.pow(score_arr[i], multi_arr[i]) * bonus_arr[i];
-
+        for (int i = 0; i < 3; i++) answer += Math.pow(score_arr[i], pow_arr[i]) * prize_arr[i];
         return answer;
     }
 
