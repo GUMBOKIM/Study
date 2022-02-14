@@ -1,4 +1,4 @@
-package ch02;
+package part01;
 
 
 import common.Apple;
