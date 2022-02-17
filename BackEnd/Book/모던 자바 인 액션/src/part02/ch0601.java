@@ -3,11 +3,7 @@ package part02;
 import common.Dish;
 
 import java.util.*;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
-import java.util.stream.Collectors.*;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 import static common.Dish.menu;
 import static java.util.stream.Collectors.*;
@@ -39,9 +35,7 @@ public class ch0601 {
         String collect3 = menu.stream().map(Dish::getName).collect(joining(","));
         System.out.println("collect3 = " + collect3);
 
-
         int totalCalories1 = menu.stream().collect(reducing(0, Dish::getCalories, (i, j) -> i + j));
         System.out.println("totalCalories1 = " + totalCalories1);
     }
-
 }

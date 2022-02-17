@@ -3,10 +3,13 @@ package part02;
 import common.CaloricLevel;
 import common.Dish;
 
+import javax.swing.plaf.MenuBarUI;
+import javax.swing.text.html.Option;
 import java.util.*;
-import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static common.Dish.menu;
+import static java.util.Comparator.comparingInt;
 import static java.util.stream.Collectors.*;
 
 public class ch0602 {
@@ -42,18 +45,34 @@ public class ch0602 {
         System.out.println("collect3 = " + collect3);
 
         Map<Dish.Type, Optional<Dish>> collect4 = menu.stream()
-                .collect(groupingBy(Dish::getType, maxBy(Comparator.comparingInt(Dish::getCalories))));
+                .collect(groupingBy(Dish::getType, maxBy(comparingInt(Dish::getCalories))));
         System.out.println("collect4 = " + collect4);
 
         Map<Dish.Type, Dish> collect5 = menu.stream().collect(groupingBy(Dish::getType,
                 collectingAndThen(
-                        maxBy(Comparator.comparingInt(Dish::getCalories)), Optional::get
+                        maxBy(comparingInt(Dish::getCalories)), Optional::get
                 )));
         System.out.println("collect5 = " + collect5);
 
         Map<Dish.Type, Integer> collect6 = menu.stream()
                 .collect(groupingBy(Dish::getType, summingInt(Dish::getCalories)));
         System.out.println("collect6 = " + collect6);
+        Map<Boolean, List<Dish>> collect7 = menu.stream().collect(partitioningBy(Dish::isVegetarian));
+        System.out.println("collect7 = " + collect7);
+
+        Map<Boolean, Map<Dish.Type, List<Dish>>> collect8 =
+                menu.stream().collect(partitioningBy(Dish::isVegetarian, groupingBy(Dish::getType)));
+        System.out.println("collect8 = " + collect8);
+
+        Map<Boolean, Dish> collect9 = menu.stream().collect(
+                partitioningBy(Dish::isVegetarian, collectingAndThen(maxBy(comparingInt(Dish::getCalories)), Optional::get)));
+        System.out.println("collect9 = " + collect9);
+    }
+
+
+    public boolean isPrime(int candidate){
+        int candidateRoot = (int) Math.sqrt((double) candidate);
+        return IntStream.range(2, candidateRoot).noneMatch(i -> candidate % i == 0);
     }
 
 }
