@@ -18,6 +18,6 @@
 실제로 쿠버네티스를 설치할때
 API, etcd, Kubelet, Container Runtime, Controller, Scheduler 가 설치가 된다.
 
-### 커뮤니키 클러스터를 구축할 때 사용할 수 있는 옵션
+### 커뮤니티 클러스터를 구축할 때 사용할 수 있는 옵션
 
 - Minikube
