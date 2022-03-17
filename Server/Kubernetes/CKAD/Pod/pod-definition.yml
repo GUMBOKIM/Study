@@ -1,0 +1,19 @@
+apiVersion : v1
+
+kind : Pod
+
+metadata :
+  name: myapp-podFE
+
+  labels:
+    app: myapp
+    costcenter: amer
+    location: NA
+    groups :
+spec :
+  containers:
+    - name : nginx-container
+      image : nginx
+
+    - name: backend-container
+      image: redis
