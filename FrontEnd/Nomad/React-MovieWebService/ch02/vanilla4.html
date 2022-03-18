@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+<div id="root"></div>
+</body>
+<script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js" crossorigin></script> <!--바벨 JSX => React Element -->
+<script type="text/babel">
+    const root = document.getElementById("root");
+
+    function App() {
+        const [minutes, setMinutes] = React.useState(60);
+        const [hours, setHours] = React.useState(1);
+
+        const divRef = React.useRef();
+        React.useEffect(
+            () => setHours(Math.round(minutes / 60)),
+            [minutes]);
+
+        React.useEffect(
+            () => setMinutes(hours * 60),
+            [hours]);
+
+        const onMinutesChange = (event) => {
+            setMinutes(event.target.value);
+
+            console.log(`minutes Change -> minutes : ${minutes}, hours : ${hours}`)
+        }
+
+        const onHoursChange = (event) => {
+            setHours(event.target.value);
+            console.log(`hours Change -> minutes : ${minutes}, hours : ${hours}`)
+        }
+
+        return (
+            <div>
+                <h1>Super Converter</h1>
+                <label htmlFor="minutes">
+                    Minutes
+                    <input value={minutes} id="minutes" placeholder="Minutes" type="number"
+                           onChange={onMinutesChange}/>
+                </label>
+                <h4>You want to convert</h4>
+                <label htmlFor="hours">
+                    Hours
+                    <input value={hours} id="hours" placeholder="Hours" type="number"
+                           onChange={onHoursChange}/>
+                </label>
+            </div>
+        );
+    }
+
+    ReactDOM.render(<App/>, root);
+</script>
+</html>
