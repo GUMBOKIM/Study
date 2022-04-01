@@ -15,7 +15,7 @@ const rotateAnimation = keyframes`
   }
   100%{
     transform: rotate(360deg);
-    border-radius: 0px;
+      border-radius: 0px;
   } 
 `;
 
