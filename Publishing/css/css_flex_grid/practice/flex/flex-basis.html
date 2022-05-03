@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>CSS Flex</title>
+	<link rel="stylesheet" href="default.css">
+</head>
+<style>
+	.flex-container {
+		display: flex;
+	}
+	.flex-container:nth-child(1) {
+		/*flex: 1*/
+		flex: 1 1 0;
+	}
+
+	.flex-container:nth-child(2) {
+		/*flex: 3;*/
+		flex: 3 1 0;
+	}
+
+	.flex-container:nth-child(3) {
+		/*flex: 1;*/
+		flex: 1 1 0;
+	}
+
+	.flex-item {
+		/*!*min-width랑 비슷*!*/
+		/*flex-basis: 10%;*/
+		/*flex-grow: 1;*/
+	}
+</style>
+<body>
+	<div class="flex-container">
+		<div class="flex-item">AAA</div>
+		<div class="flex-item">B</div>
+		<div class="flex-item">CCC</div>
+	</div>
+</body>
+</html>

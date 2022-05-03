@@ -1,0 +1,68 @@
+.header {
+    display: flex;
+    align-items: center;
+    height: 80px;
+    padding: 0 1rem;
+}
+
+.search-form {
+    margin-left: auto;
+    width: 240px;
+    max-width: 60%;
+}
+
+.primary {
+    padding: 1rem;
+}
+
+.secondary {
+    padding: 1rem;
+}
+
+.secondary-a {
+    background: white;
+}
+
+.secondary-b {
+    color: white;
+    background: #666;
+}
+
+.footer {
+    padding: 1rem;
+    text-align: center;
+}
+
+.modal {
+    display: none;
+}
+
+#modal-switch {
+    font-size: 2rem;
+}
+#modal-switch:checked + .modal {
+    position: absolute;
+    top: 1.3rem;
+    right: 1rem;
+}
+label[for="modal-switch"] {
+    content: "O";
+    top: 2rem;
+    right: 1rem;
+    width: 40px;
+    height: 40px;
+    background: red;
+}
+label[for="modal-switch"]:before {
+    content: "O";
+    font-size: 2rem;
+}
+#modal-switch,
+label[for="modal-switch"] span {
+    overflow: hidden;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    top: 0;
+    opacity: 0;
+}

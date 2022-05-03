@@ -6,8 +6,8 @@ import {createContext, useState} from "react";
 //     setLaunchMenuDaeHee() {
 //         this.launchMenu = '국밥';
 //     },
-//     setLaunchMenu(menu){
-//         this.launchMenu = menu;
+//     setLaunchMenu(ui){
+//         this.launchMenu = ui;
 //     }
 // })
 
