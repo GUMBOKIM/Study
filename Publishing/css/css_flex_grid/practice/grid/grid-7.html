@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>CSS Flex</title>
+	<link rel="stylesheet" href="default.css">
+</head>
+<style>
+
+	.grid-container {
+		background: grey;
+		height: 80vh;
+
+		display: grid;
+		gap: 1rem;
+		grid-template-columns: 1fr 3fr 1fr;
+		grid-template-areas:
+	"header header header"
+	"sidebar-a main sidebar-b"
+	"footer footer footer";
+	}
+	.grid-item{
+		background: red;
+		border: 2px solid black;
+		display: inline;
+	}
+
+	.header {
+		grid-area: header;
+	}
+	.sidebar-a {
+		grid-area: sidebar-a;
+	}
+	.sidebar-b {
+		grid-area: sidebar-b;
+	}
+	.main {
+		grid-area: main;
+	}
+	.footer {
+		grid-area: footer;
+	}
+
+
+</style>
+<body>
+	<div class="grid-container">
+		<div class="grid-item header">Header</div>
+		<div class="grid-item sidebar-a">Sidebar A</div>
+		<div class="grid-item sidebar-b">Sidebar B</div>
+		<div class="grid-item main">Main</div>
+		<div class="grid-item footer">Footer</div>
+	</div>
+</body>
+</html>

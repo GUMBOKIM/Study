@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>CSS Flex</title>
+	<link rel="stylesheet" href="default.css">
+</head>
+<style>
+
+	.grid-container {
+		background: grey;
+		display: grid;
+		gap: 1rem;
+		height: 80vh;
+
+		/*!*grid-item 세로축 기준 정렬*!*/
+		/*align-items: center;*/
+		/*!*grid-item 가로축 기준 정렬*!*/
+		/*justify-items: start;*/
+		/*!*grid 세로축 기준 가로축 기준*!*/
+		/*place-items: center start;*/
+
+		/*!* grid 세로축 기준 정렬*!*/
+		/*align-content: space-around;*/
+		/*!* grid 가로축 기준 정렬*!*/
+		/*justify-content: start;*/
+		/*!*grid 세로축 기준 가로축 기준*!*/
+		/*place-content: space-around;*/
+
+		grid-template-columns: repeat(auto-fill, minmax(20%, auto));
+	}
+
+	.grid-item{
+		background: red;
+		border: 2px solid black;
+	}
+
+	.grid-item:nth-child(2) {
+		align-self: center;
+		justify-self: start;
+	}
+
+</style>
+<body>
+	<div class="grid-container">
+		<div class="grid-item">A</div>
+		<div class="grid-item">B</div>
+		<div class="grid-item">C</div>
+		<div class="grid-item">D</div>
+		<div class="grid-item">E</div>
+		<div class="grid-item">A</div>
+		<div class="grid-item">B</div>
+		<div class="grid-item">C</div>
+		<div class="grid-item">D</div>
+		<div class="grid-item">E</div>
+		<div class="grid-item">A</div>
+		<div class="grid-item">B</div>
+		<div class="grid-item">C</div>
+		<div class="grid-item">D</div>
+		<div class="grid-item">E</div>
+		<div class="grid-item">A</div>
+		<div class="grid-item">B</div>
+		<div class="grid-item">C</div>
+		<div class="grid-item">D</div>
+		<div class="grid-item">E</div>
+	</div>
+</body>
+</html>
