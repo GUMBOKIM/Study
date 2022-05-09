@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        .world {
+            background: grey;
+            width: 80vw;
+            height: 60vh;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            /*perspective: 200px;*/
+        }
+
+        .card {
+            width: 100px;
+            height: 150px;
+            position: relative;
+            margin: 1em;
+            transition: 1s;
+            transform: perspective(500px);
+            transform-style: preserve-3d;
+            /*transform-origin: left;*/
+        }
+
+        .card-side {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            left: 0;
+            top: 0;
+            border-radius: 0.5em;
+            border: black solid 1px;
+            font-size: 1.5rem;
+            backface-visibility: hidden;
+            width: 100%;
+            height: 100%;
+        }
+
+        .card-side-front {
+            background: white;
+            z-index: 1;
+        }
+
+        .card-side-back {
+            background: red;
+            transform: rotateY(180deg);
+        }
+
+        .world:hover .card {
+            transform: rotateY(180deg);
+        }
+    </style>
+</head>
+<body>
+<div class="world">
+    <div class="card">
+        <div class="card-side card-side-front">Front</div>
+        <div class="card-side card-side-back">Back</div>
+    </div>
+</div>
+</body>
+</html>

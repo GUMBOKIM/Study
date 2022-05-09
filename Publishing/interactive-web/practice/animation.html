@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        .box-container {
+            display: flex;
+        }
+
+        @keyframes sample-ani {
+            0% {
+                transform: translate(0,0);
+                background: red;
+            }
+            50% {
+                transform: translate(300px, 0);
+                background: blue;
+            }
+            100% {
+                transform: translate(300px, 200px);
+                background: yellow;
+            }
+        }
+
+        .box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100px;
+            height: 100px;
+            border: 2px solid black;
+            background: #fff000;
+
+            animation: sample-ani 2s linear infinite running;
+        }
+
+        .box:hover {
+            animation-play-state: paused;
+        }
+        @keyframes spaceship-ani {
+            to {
+                background-position: -2550px 0;
+            }
+        }
+
+        .spaceship {
+            width: 150px;
+            height: 150px;
+            background: url('images/sprite_spaceship.png') no-repeat 0 0 / auto 150px;
+            animation: spaceship-ani 1s infinite reverse steps(17);
+        }
+    </style>
+</head>
+<body>
+    <div class="box">BOX</div>
+<div class="spaceship"/>
+</body>
+</html>
