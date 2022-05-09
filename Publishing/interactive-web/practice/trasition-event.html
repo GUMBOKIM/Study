@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Interactive Web</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <style>
+        @keyframes ball-ani {
+            from{
+                transform: translate(0,0);
+            }
+            to {
+                transform: translate(200px, 200px);
+            }
+        }
+
+        .ball {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 30px;
+            height: 30px;
+            /*margin: -15px 0 0 -15px;*/
+            border-radius: 50%;
+            background: red;
+            /*transition: 0.5s;*/
+            /*animation: ball-ani 1s 3 alternate forwards;*/
+        }
+
+        .ball.end {
+            background: dodgerblue;
+        }
+    </style>
+</head>
+<body>
+<div class="ball"></div>
+
+<script>
+    const ballElem = document.querySelector('.ball');
+
+    ballElem.addEventListener('click', function () {
+        ballElem.style.animation = 'ball-ani 1s 3 alternate forwards';
+    })
+
+    ballElem.addEventListener('animationend', function () {
+        ballElem.classList.add('end');
+    })
+
+    ballElem.addEventListener('animationiteration', function () {
+        console.log('반복')
+    })
+
+    // window.addEventListener('mousemove', function (e) {
+    //     console.log(e.clientX, e.clientY);
+    //     ballElem.style.transform = 'translate(' + e.clientX + 'px, ' + e.clientY + 'px';
+    // })
+    //
+    // window.addEventListener('click', function (e) {
+    //     console.log(e.clientX, e.clientY);
+    //     ballElem.style.transform = 'translate(' + e.clientX + 'px, ' + e.clientY + 'px';
+    // });
+    //
+    // ballElem.addEventListener('transitionend' , function (e) {
+    //     ballElem.classList.add('end');
+    //     console.log(e.elapsedTime);
+    //     console.log(e.propertyName);
+    // })
+
+</script>
+
+</body>
+</html>
