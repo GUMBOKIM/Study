@@ -8,7 +8,6 @@ public class 메뉴리뉴얼 {
         Map<String, Integer> map = new HashMap<>();
         for(String order : orders){
             for(String s : order.split("")){
-                Integer temp = map.
             }
         }
         return null;

@@ -3,7 +3,7 @@ package level2;
 public class 피보나치수 {
 
     public static String[] solution(int n) {
-        int n
+//        int n
         return null;
     }
 
@@ -11,6 +11,6 @@ public class 피보나치수 {
         String[] orders = {"ABCFG", "AC", "CDE", "ACDE", "BCFG", "ACDEH"};
         int[] course = {2, 3, 4};
 
-        System.out.println(피보나치수.solution(orders, course));
+//        System.out.println(피보나치수.solution(orders, course));
     }
 }
