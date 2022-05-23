@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dom VS Virtual DOM</title>
+  <style>
+      #container {
+          display: flex;
+          flex-direction: column;
+      }
+      .box1 {
+          height: 20px;
+          background: blue;
+      }
+      .box2 {
+          height: 20px;
+          background: red;
+      }
+      .box3 {
+          height: 20px;
+          background: yellow;
+      }
+  </style>
+  <script type= text/javascript>
+      const count = 10000;
+
+      const startUp = () => {
+          const container = document.getElementById('container');
+          for(let i = 0; i < count; i++) {
+              const child = document.createElement("div");
+              child.className += 'box'+(i % 3 + 1);
+              child.innerText = i + '';
+              child.id= i + '';
+              container.appendChild(child);
+          }
+      }
+
+      const onClickRealDOM = () => {
+          const container = document.getElementById('container');
+          const t_start = performance.now();
+
+          for(let i = 0; i < count; i++) {
+              if(i % 3 === 0) {
+                  const child = document.getElementById(i+'');
+                  container.removeChild(child);
+              }
+          }
+          const t_end = performance.now();
+          alert('RealDOM render time = ' + (t_end - t_start) + 'milliseconds');
+      }
+
+      const onClickVirtualDOM = () => {
+          const root = document.getElementById('root');
+          const container = document.getElementById('container')
+          const children = [...container.childNodes];
+
+          const VirtualDOM = document.createElement('div');
+          VirtualDOM.id = 'container';
+          const t_start = performance.now();
+          console.log(children)
+          children.filter(child => child.id % 3 !== 0).forEach(child => VirtualDOM.appendChild(child));
+
+          root.removeChild(container);
+          root.appendChild(VirtualDOM);
+          const t_end = performance.now();
+          alert('VirtualDOM render time = ' + (t_end - t_start) + 'milliseconds');
+          console.log(VirtualDOM)
+      }
+  </script>
+</head>
+<body>
+  <h1>Real DOM VS Virtual DOM</h1>
+  <button onclick={startUp()}>Start Up</button>
+  <button onclick={onClickRealDOM()}>Real DOM</button>
+  <button onclick={onClickVirtualDOM()}>Virtual DOM</button>
+  <div id="root">
+      <div id="container"></div>
+  </div>
+
+</body>
+
+</html>
