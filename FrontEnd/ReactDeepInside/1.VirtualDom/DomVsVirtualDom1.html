@@ -22,18 +22,16 @@
       }
   </style>
   <script type= text/javascript>
-      const count = 10000;
+      const count = 1000000;
 
       const onClickRealDOM = () => {
           const container = document.getElementById('container');
-          const t_start = performance.now();
-          for(let i = 0; i < count; i++) {
+          for(let i = 0; i < 10000; i++) {
               const child = document.createElement("div");
               child.className += 'box'+(i % 3 + 1);
               child.innerText = i + '';
               container.appendChild(child);
           }
-          const t_end = performance.now();
           alert('RealDOM render time = ' + (t_end - t_start) + 'milliseconds');
       }
 
@@ -42,18 +40,13 @@
           const container = document.getElementById('container');
           const VirtualDOM = document.createElement('div');
           VirtualDOM.id = 'container';
-
-          const t_start = performance.now();
-          for(let i = 0; i < count; i++) {
+          for(let i = 0; i < 10000; i++) {
               const child = document.createElement('div');
               child.className += 'box'+(i % 3 + 1);
               child.innerText = i + '';
               VirtualDOM.appendChild(child);
           }
-          root.removeChild(container);
-          root.appendChild(VirtualDOM);
-          const t_end = performance.now();
-          alert('VirtualDOM render time = ' + (t_end - t_start) + 'milliseconds');
+          root.replaceChild(VirtualDOM ,container);
       }
 
       const cleanUp = () => {
