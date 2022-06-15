@@ -16,8 +16,8 @@ class ExamStoreClass {
     // 예제 1
     post: IPost = {id: 0, title: '', content: ''};
 
-    async getPost() {
-        await ExamRepository.getPost().then(r => this.post = r);
+    async getPost(postId: number) {
+        await ExamRepository.getPost(postId).then(r => this.post = r);
     }
 
     initPost() {

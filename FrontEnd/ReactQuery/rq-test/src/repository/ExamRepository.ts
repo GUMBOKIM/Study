@@ -3,8 +3,7 @@ import {UIStore} from "../store/UIStore";
 
 class Repo {
     // 에제 1
-    async getPost(): Promise<IPost> {
-        const postId = Math.floor(PostData.length * Math.random() + 1);
+    async getPost(postId: number): Promise<IPost> {
         return new Promise((resolve) => {
             setTimeout(() => {
                 resolve(PostData.find(post => post.id === postId)!);

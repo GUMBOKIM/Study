@@ -68,8 +68,7 @@ const Exam2Page_Query_Input: React.FC = () => {
     const addTodo = useMutation((content: string) => ExamRepository.addTodo(content),
         {
             onSuccess: () => {
-                queryClient.invalidateQueries('todoList')
-                setInput('');
+                queryClient.invalidateQueries('todoList').then(() => setInput(''));
             }
 
         });
