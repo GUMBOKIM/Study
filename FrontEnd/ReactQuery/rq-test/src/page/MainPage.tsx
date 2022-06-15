@@ -23,7 +23,11 @@ const MainPage: React.FC = () => {
             </span>
             <hr/>
             <h3>장점 2 - Mutation</h3>
-            <p>Mutation을 통한 데이터 업데이트(CUD) 즉시 반영</p>
+            <p>
+                Mutation을 통해 API 호출 후 결과에 따라 작업을 지정해 줄 수 있음.
+                <br/>
+                서버 상태 업데이트(CUD) 성공 시, 기존 쿼리 무효화(최신 데이터를 다시 서버로 부터 요청)
+            </p>
             <span>
                     <Link to='/exam2S'>Store</Link>
                 {` `}
