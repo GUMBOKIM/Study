@@ -1,3 +1,5 @@
+import {createRandomNumber} from "../util/util";
+
 export interface IPost {
     id: number;
     title: string;
@@ -47,7 +49,7 @@ for (let i = 1; i <= userDataLength; i++) {
 
 const chatDataLength = 100;
 for (let i = 1; i <= chatDataLength; i++) {
-    const randomUserId = Math.floor(Math.random() * userDataLength) + 1
+    const randomUserId = createRandomNumber(userDataLength) + 1
     ChatData.push({
         id: i,
         userId: randomUserId,

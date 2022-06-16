@@ -1,20 +1,16 @@
 import {ChatData, IChat, IPost, ITodo, IUser, PostData, TodoList, UserData} from "./ExamData";
 import {UIStore} from "../store/UIStore";
+import {createRandomNumber, sleep} from "../util/util";
 
 class Repo {
     // 에제 1
     async getPost(postId: number): Promise<IPost> {
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                resolve(PostData.find(post => post.id === postId)!);
-            }, 300)
-        });
+        return sleep(PostData.find(post => post.id === postId)!, 300);
     }
 
     // 예제 2
     getTodoList(): Promise<ITodo[]> {
-        return new Promise((resolve) => setTimeout(() => {resolve(TodoList);}, 20)
-        )
+        return sleep(TodoList, 20);
     }
 
     addTodo(content: string): Promise<ITodo> {
@@ -23,8 +19,7 @@ class Repo {
             id: lastId + 1,
             content: content
         })
-        console.log(TodoList);
-        return new Promise((resolve) => setTimeout(() => resolve({id: lastId + 1, content}), 20));
+        return sleep({id: lastId + 1, content}, 20);
     }
 
     deleteTodo(id: number): Promise<void> {
@@ -34,7 +29,7 @@ class Repo {
                 break;
             }
         }
-        return new Promise((resolve) => setTimeout(() => resolve(), 10))
+        return sleep(console.log('DELETE'), 10);
     }
 
     updateTodo(id: number, content: string): Promise<ITodo> {
@@ -44,37 +39,39 @@ class Repo {
                 break;
             }
         }
-        return new Promise((resolve) => setTimeout(() => resolve({id, content}), 10));
+        return sleep({id, content}, 10);
     }
 
 // 예제 3
-    getChatList()
-        :
-        Promise<IChat[]> {
+    getChatList(): Promise<IChat[]> {
         console.log(`Chat API 호출`);
         UIStore.callChatApi();
-        return new Promise((resolve) =>
-            setTimeout(() => {
-                resolve(ChatData);
-            }, 10)
-        )
+        return sleep(ChatData, 10);
     }
 
-    getUserInfo(userId
-                    :
-                    number
-    ):
-        Promise<IUser> {
+    getUserInfo(userId: number): Promise<IUser> {
         console.log(`User API 호출 - ${userId}`)
         UIStore.callUserApi();
         const userInfo = UserData.find(user => user.id === userId);
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                resolve(userInfo ? userInfo : {id: 0, name: '익명'});
-            }, 20)
-        });
+        return sleep(userInfo ? userInfo : {id: 0, name: '익명'}, 20);
     }
 
+    // 에제4
+    testQuery1(): Promise<boolean> {
+        UIStore.parallelQuery1Success = true;
+        return sleep(true, createRandomNumber(5) * 1000)
+            .then(() => UIStore.parallelQuery1Success = true);
+    }
+
+    testQuery2(): Promise<boolean> {
+        return sleep(true, createRandomNumber(5) * 1000)
+            .then(() => UIStore.parallelQuery2Success = true);
+    }
+
+    testQuery3(): Promise<boolean> {
+        return sleep(true, createRandomNumber(5) * 1000)
+            .then(() => UIStore.parallelQuery3Success = true);
+    }
 }
 
 export const ExamRepository = new Repo();

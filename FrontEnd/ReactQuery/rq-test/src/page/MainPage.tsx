@@ -1,10 +1,11 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import {PostData} from "../repository/ExamData";
+import {createRandomNumber} from "../util/util";
 
 const MainPage: React.FC = () => {
     const randomPostId = () => {
-        return Math.floor(PostData.length * Math.random() + 1);
+        return createRandomNumber(PostData.length) + 1;
     }
 
 
@@ -40,7 +41,15 @@ const MainPage: React.FC = () => {
                     <Link to='/exam3S'>Store</Link>
                 {` `}
                 <Link to='/exam3Q'>Query</Link>
-                    </span>
+            </span>
+            <hr/>
+            <h3>장점 4 - useQueries</h3>
+            <p>useQueries를 통해서 간편한 병렬처리 가능</p>
+            <span>
+                    <Link to='/exam4S'>미적용</Link>
+                {` `}
+                <Link to='/exam4Q'>적용</Link>
+            </span>
         </>
     )
 }
