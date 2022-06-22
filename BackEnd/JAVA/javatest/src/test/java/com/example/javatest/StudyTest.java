@@ -15,9 +15,12 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
 import static org.junit.jupiter.api.Assumptions.assumingThat;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class StudyTest {
 
     @Test
+    @Order(2)
     @DisplayName("스터디 만들기")
     @Tag("fast")
     void createTest() {
@@ -40,6 +43,7 @@ class StudyTest {
 
 
     @Test
+    @Order(1)
     @Tag("slow")
     void create1_test() {
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new Study(-10));
