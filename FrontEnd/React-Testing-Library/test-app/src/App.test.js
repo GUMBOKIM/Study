@@ -36,5 +36,32 @@ describe("button app", () => {
       const counterElement = screen.getByTestId("counter");
       expect(counterElement).toHaveTextContent('-1');
     })
+
+    test('on/off button has blue color', () => {
+      render(<App/>);
+      const buttonElement = screen.getByTestId('on/off-button');
+      expect(buttonElement).toHaveStyle({backgroundColor: 'blue'});
+    })
+
+    test('on/off button is pressed, the counter button is disabled', () => {
+      render(<App/>);
+      const buttonElement = screen.getByTestId('on/off-button');
+      fireEvent.click(buttonElement);
+      const plusButton = screen.getByTestId("plus-button");
+      const minusButton = screen.getByTestId("minus-button");
+      expect(plusButton).toBeDisabled();
+      expect(minusButton).toBeDisabled();
+    })
+
+
+    test('testasdasd', () => {
+      render(<App/>);
+      const buttonElement = screen.getByTestId('on/off-button');
+      fireEvent.click(buttonElement);
+      const plusButton = screen.getByTestId("plus-button");
+      expect(plusButton).toBeDisabled();
+      fireEvent.click(buttonElement);
+      expect(plusButton).toBeEnabled();
+    })
   })
 })
