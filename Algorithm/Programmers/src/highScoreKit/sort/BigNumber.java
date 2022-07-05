@@ -1,12 +1,11 @@
 package highScoreKit.sort;
 
 import java.util.Arrays;
-import java.util.Comparator;
 
 public class BigNumber {
 
 
-    static void so(int[][] costs, int xcost, int ycost){
+    static void solution(int[][] costs, int xcost, int ycost){
         System.out.println("Arrays.toString(costs) = " + Arrays.toString(costs));
     }
 
@@ -14,7 +13,7 @@ public class BigNumber {
 
 
     public static void main(String[] args) {
-        String result = solution(new int[]{99998, 9});
-        System.out.println("result = " + result);
+        int[][] aa = new int[2][3];
+        solution(aa, 1, 1);
     }
 }
