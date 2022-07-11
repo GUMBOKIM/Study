@@ -1,10 +1,11 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import styled from 'styled-components'
 import ImageGallery from 'react-image-gallery'
 import 'react-image-gallery/styles/css/image-gallery.css'
 import btnClose from '../assets/btn-close.png'
 
 const ImageModal = (props) => {
+
     const images = [
         {
             original: 'https://stillmed.olympic.org/media/Photos/2016/08/20/part-1/20-08-2016-Football-Men-01.jpg?interpolation=lanczos-none&resize=*:800',
@@ -39,6 +40,11 @@ const ImageModal = (props) => {
             thumbnail: 'https://stillmed.olympic.org/media/Photos/2016/08/20/part-1/20-08-2016-Football-Men-03.jpg?interpolation=lanczos-none&resize=*:150',
         },
     ]
+
+    useEffect(() => {
+        const image = new Image();
+        image.src = images[0].original;
+    },[])
 
     return (
         <ImageModalWrapper>
