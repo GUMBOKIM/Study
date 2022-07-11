@@ -1,4 +1,4 @@
-import React, {lazy, Suspense, useState} from 'react'
+import React, {lazy, Suspense, useEffect, useState} from 'react'
 import styled from 'styled-components'
 import Header from './components/Header'
 import InfoTable from './components/InfoTable'
@@ -6,16 +6,35 @@ import SurveyChart from './components/SurveyChart'
 import Footer from './components/Footer'
 // import ImageModal from './components/ImageModal'
 
-const LazyImageModal = lazy(() => import('./components/ImageModal'))
+const lazyWithPreload = (importFunction) => {
+    const component = React.lazy(importFunction);
+    component.preload = importFunction;
+    return component;
+}
+
+const LazyImageModal = lazyWithPreload(() => import('./components/ImageModal'))
 
 function App() {
-    const [showModal, setShowModal] = useState(false)
+    const [showModal, setShowModal] = useState(false);
+
+    useEffect(() => {
+        // const preLoad = import('./components/ImageModal');
+        LazyImageModal.preload();
+    },[]);
+    //
+    // const handleMouseEnter = () => {
+    //     const preLoad = import('./components/ImageModal');
+    // }
 
     return (
         <div className="App">
             <Header />
             <InfoTable />
-            <ButtonModal onClick={() => { setShowModal(true) }}>올림픽 사진 보기</ButtonModal>
+            <ButtonModal
+                // onMouseEnter={handleMouseEnter}
+                onClick={() => { setShowModal(true) }}>
+                올림픽 사진 보기
+            </ButtonModal>
             <SurveyChart />
             <Footer />
             <Suspense fallback={null}>
