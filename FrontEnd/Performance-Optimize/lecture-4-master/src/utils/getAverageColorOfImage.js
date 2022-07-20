@@ -37,7 +37,7 @@ function getAverageColorOfImageFn(imgElement) {
   const imageData = context.getImageData(0, 0, width, height).data;
   const length = imageData.length;
 
-  for (let i = 0; i < length; i += 4) {
+  for (let i = 0; i < length; i += 10) {
     averageColor.r += imageData[i];
     averageColor.g += imageData[i + 1];
     averageColor.b += imageData[i + 2];
