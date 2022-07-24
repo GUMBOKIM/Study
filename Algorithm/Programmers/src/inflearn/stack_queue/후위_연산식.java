@@ -6,18 +6,26 @@ import java.util.Stack;
 public class 후위_연산식 {
 
     public static int solution(String input) {
-        int answer = 0;
-        int temp = 0;
-        Stack<Character> stack = new Stack<>();
-        for (char c: input.toCharArray()) {
-            if(Character.isDigit(c)) {
-                stack.push(c);
-
+        Stack<Integer> stack = new Stack<>();
+        for (char c : input.toCharArray()) {
+            if (Character.isDigit(c)) {
+                stack.push(c - 48);
+            } else {
+                int rt = stack.pop();
+                int lt = stack.pop();
+                switch (c) {
+                    case '+': stack.push(lt + rt);
+                        break;
+                    case '-': stack.push(lt - rt);
+                        break;
+                    case '*': stack.push(lt * rt);
+                        break;
+                    case '/': stack.push(lt / rt);
+                        break;
+                }
             }
-            stack.push(c);
         }
-
-        return answer;
+        return stack.get(0);
     }
 
     public static void main(String[] args) {
