@@ -1,11 +1,8 @@
 package level2;
 
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.regex.Pattern;
 
-public class 가장_큰수 {
+public class 게임_맵_최단거리 {
     public String solution(int[] numbers) {
         String answer = "";
         int length  =numbers.length;
