@@ -49,6 +49,7 @@ public class 게임_맵_최단거리 {
         return answer;
     }
 
+    static int n, m;
     public static void bfs(int[][] maps, int[][] visited){
         int x = 0;
         int y = 0;
@@ -56,24 +57,22 @@ public class 게임_맵_최단거리 {
         Queue<int[]> queue = new LinkedList<>();
         queue.add(new int[]{x, y});
 
-        while(!queue.isEmpty()){
+        while(!queue.isEmpty()) {
             int[] current = queue.remove();
             int cX = current[0];
             int cY = current[1];
 
-            for(int i = 0; i < 4; i++){
+            for(int i = 0; i < 4; i ++) {
                 int nX = cX + dx[i];
                 int nY = cY + dy[i];
-
-                if(nX < 0 || nX > maps.length-1 || nY < 0 || nY > maps[0].length-1)
-                    continue;
-
-                if(visited[nX][nY] == 0 && maps[nX][nY] == 1){
-                    visited[nX][nY] = visited[cX][cY] + 1;
-                    queue.add(new int[]{nX, nY});
+                if(nX >= 0 && nX < m && nY >= 0 && nY < n){
+                    if(visited[nY][nX] == 0 && map[nY][nX] == 1){
+                        visited[nY][nX] = visited[cY][cX] + 1;
+                        map[nY][nX] = 0;
+                        queue.add(new int[]{nX, nY});
+                    }
                 }
             }
-
         }
 
 
