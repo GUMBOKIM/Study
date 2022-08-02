@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import {ImagePanel} from "./ImagePanel";
 
 // ----- 주제: 기본 Geometry 파티클
 
@@ -39,17 +40,38 @@ export default function example() {
 	// Controls
 	const controls = new OrbitControls(camera, renderer.domElement);
 	controls.enableDamping = true;
-	
+
+
+	// POINTS
+	const sphereGeometry = new THREE.SphereGeometry(1, 8,8);
+	const positionArray = sphereGeometry.attributes.position.array;
 
 	// Mesh
-	const geometry = new THREE.SphereGeometry(1, 32, 32);
-	const material = new THREE.PointsMaterial({
-		size: 0.02,
-		// size: 1,
-		// sizeAttenuation: false
-	});
-	const points = new THREE.Points(geometry, material);
-	scene.add(points);
+	const planeGeometry = new THREE.PlaneGeometry(0.3, 0.3);
+
+	const planeMesh = new THREE.Mesh(
+		planeGeometry,
+		new THREE.MeshBasicMaterial({
+			color: 'red',
+			side: THREE.DoubleSide
+		})
+	)
+
+	const textureLoader = new THREE.TextureLoader();
+
+	// 여러개의 Plane Mesh 생성
+	let imagePanel;
+	for(let i = 0; i < positionArray.length; i += 3){
+		imagePanel = new ImagePanel({
+			textureLoader,
+			scene,
+			geometry: planeGeometry,
+			imageSrc: `/images/0${Math.ceil(Math.random() * 5)}.jpg`,
+			x: positionArray[i],
+			y: positionArray[i + 1],
+			z: positionArray[i + 2],
+		});
+	}
 
 	// 그리기
 	const clock = new THREE.Clock();

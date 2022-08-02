@@ -104,7 +104,7 @@ export default function example() {
             scene,
             cannonWorld,
             gltfLoader,
-            z: -i * 0.8,
+            z: -i * 0.5,
         });
         dominos.push(domino);
     }

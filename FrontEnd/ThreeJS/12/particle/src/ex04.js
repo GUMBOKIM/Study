@@ -42,14 +42,41 @@ export default function example() {
 	
 
 	// Mesh
-	const geometry = new THREE.SphereGeometry(1, 32, 32);
+	const geometry = new THREE.BufferGeometry();
+	const count = 1000;
+	const positions = new Float32Array(count * 3);
+	for (let i = 0; i < positions.length; i++) {
+		positions[i] = 10 * (Math.random() - 0.5);
+	}
+	const colors = new Float32Array(count * 3);
+	for (let i = 0; i < colors.length; i++) {
+		colors[i] = Math.random();
+	}
+	geometry.setAttribute(
+		'position',
+		new THREE.BufferAttribute(positions, 3)
+	);
+	geometry.setAttribute(
+		'color',
+		new THREE.BufferAttribute(colors, 3)
+	);
+
+	const textureLoader = new THREE.TextureLoader();
+	const particleTexture = textureLoader.load('/images/star.png');
+
 	const material = new THREE.PointsMaterial({
-		size: 0.02,
+		size: 0.1,
+		map: particleTexture,
+		transparent: true,
+		alphaMap: particleTexture,
+		depthWrite: false,
 		// size: 1,
 		// sizeAttenuation: false
+		vertexColors: true
 	});
-	const points = new THREE.Points(geometry, material);
-	scene.add(points);
+
+	const particles = new THREE.Points(geometry, material);
+	scene.add(particles);
 
 	// 그리기
 	const clock = new THREE.Clock();

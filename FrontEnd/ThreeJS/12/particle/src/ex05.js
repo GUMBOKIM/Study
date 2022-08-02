@@ -39,17 +39,33 @@ export default function example() {
 	// Controls
 	const controls = new OrbitControls(camera, renderer.domElement);
 	controls.enableDamping = true;
-	
+
+
+	// POINTS
+	const sphereGeometry = new THREE.SphereGeometry(1, 8,8);
+	const positionArray = sphereGeometry.attributes.position.array;
 
 	// Mesh
-	const geometry = new THREE.SphereGeometry(1, 32, 32);
-	const material = new THREE.PointsMaterial({
-		size: 0.02,
-		// size: 1,
-		// sizeAttenuation: false
-	});
-	const points = new THREE.Points(geometry, material);
-	scene.add(points);
+	const planeMesh = new THREE.Mesh(
+		new THREE.PlaneGeometry(0.3, 0.3),
+		new THREE.MeshBasicMaterial({
+			color: 'red',
+			side: THREE.DoubleSide
+		})
+	)
+
+	// 여러개의 Plane Mesh 생성
+	let plane;
+	for(let i = 0; i < positionArray.length; i += 3){
+		plane = planeMesh.clone();
+		plane.position.x = positionArray[i];
+		plane.position.y = positionArray[i + 1];
+		plane.position.z = positionArray[i + 2];
+
+		plane.lookAt(0,0,0);
+
+		scene.add(plane);
+	}
 
 	// 그리기
 	const clock = new THREE.Clock();

@@ -148,19 +148,21 @@ export default function example() {
     // 이벤트
     window.addEventListener('resize', setSize);
     window.addEventListener('click', () => {
-		const mySphere = new MySphere({
-				scene,
-				cannonWorld,
-				geometry: sphereGeometry,
-				material: sphereMaterial,
-				x: (Math.random() - 0.5) * 2,
-				y: Math.random() * 5 + 2,
-				z: (Math.random() - 0.5) * 2,
-				scale: Math.random() + 0.2,
-			});
+        for (let i = 0; i < 10; i++) {
+            const mySphere = new MySphere({
+                scene,
+                cannonWorld,
+                geometry: sphereGeometry,
+                material: sphereMaterial,
+                x: (Math.random() - 0.5) * 2,
+                y: Math.random() * 5 + 2,
+                z: (Math.random() - 0.5) * 2,
+                scale: Math.random() + 0.2,
+            });
 
-		spheres.push(mySphere);
-		mySphere.cannonBody.addEventListener('collide', collide);
+            spheres.push(mySphere);
+            mySphere.cannonBody.addEventListener('collide', collide);
+        }
     });
 
     const btn = document.createElement('button');
