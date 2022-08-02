@@ -1,7 +1,9 @@
 import * as THREE from 'three';
 import * as CANNON from 'cannon-es';
 import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
-import {MySphere} from "./mySphere";
+import {GLTFLoader} from "three/examples/jsm/loaders/GLTFLoader";
+import {Domino} from "./Domino";
+
 
 // ----- 주제: cannon.js 기본 세팅
 
@@ -48,17 +50,18 @@ export default function example() {
     // Controls
     const controls = new OrbitControls(camera, renderer.domElement);
 
+    // Loader
+    const gltfLoader = new GLTFLoader();
+
     // Cannon
     const cannonWorld = new CANNON.World();
     cannonWorld.gravity.set(0, -10, 0);
 
-	// Performance Setting
-	cannonWorld.allowSleep = true;
+    // Performance Setting
+    cannonWorld.allowSleep = true;
 
     // Contact Material
     const defaultMaterial = new CANNON.Material('default');
-    const rubberMaterial = new CANNON.Material('rubber');
-    const ironMaterial = new CANNON.Material('iron');
     const defaultContactMaterial = new CANNON.ContactMaterial(
         defaultMaterial,
         defaultMaterial,
@@ -69,23 +72,11 @@ export default function example() {
     );
     cannonWorld.defaultContactMaterial = defaultContactMaterial;
 
-    const rubberDefaultContactMaterial = new CANNON.ContactMaterial(
-        rubberMaterial,
-        defaultMaterial,
-        {
-            friction: 0.8,
-            restitution: 0.7
-        }
-    );
-    cannonWorld.addContactMaterial(rubberDefaultContactMaterial);
-
-
     const floorShape = new CANNON.Plane();
     const floorBody = new CANNON.Body({
         mass: 0,
         position: new CANNON.Vec3(0, 0, 0),
         shape: floorShape,
-        material: defaultMaterial,
     });
     floorBody.quaternion.setFromAxisAngle(
         new CANNON.Vec3(-1, 0, 0),
@@ -105,11 +96,19 @@ export default function example() {
     floorMesh.receiveShadow = true;
     scene.add(floorMesh);
 
-	let spheres = [];
-    const sphereGeometry = new THREE.SphereGeometry(0.5);
-    const sphereMaterial = new THREE.MeshStandardMaterial({
-        color: 'seagreen'
-    });
+    // 도미노
+    const dominos = [];
+    let domino;
+    for (let i = -10; i < 10; i++) {
+        domino = new Domino({
+            scene,
+            cannonWorld,
+            gltfLoader,
+            z: -i * 0.8,
+        });
+        dominos.push(domino);
+    }
+
 
     // 그리기
     const clock = new THREE.Clock();
@@ -119,10 +118,12 @@ export default function example() {
 
         cannonWorld.step(1 / 120, delta, 3);
 
-		spheres.forEach(item => {
-			item.mesh.position.copy(item.cannonBody.position);
-			item.mesh.quaternion.copy(item.cannonBody.quaternion);
-		})
+        dominos.forEach(item => {
+            if (item.cannonBody) {
+                item.modelMesh.position.copy(item.cannonBody.position);
+                item.modelMesh.quaternion.copy(item.cannonBody.quaternion);
+            }
+        })
 
         renderer.render(scene, camera);
         renderer.setAnimationLoop(draw);
@@ -135,46 +136,30 @@ export default function example() {
         renderer.render(scene, camera);
     }
 
-    const sound = new Audio('/sounds/boing.mp3');
+    // Raycaster
+    const raycaster = new THREE.Raycaster();
+    const mouse = new THREE.Vector2();
 
-	function collide(e) {
-        const velocity = e.contact.getImpactVelocityAlongNormal();
-        if(velocity > 3){
-        sound.currentTime = 0;
-		sound.play();
+    function checkIntersects(){
+        raycaster.setFromCamera(mouse, camera);
+        const intersects = raycaster.intersectObjects(scene.children);
+        if (intersects[0]?.object.cannonBody){
+            intersects[0].object.cannonBody.applyForce(
+                new CANNON.Vec3(0,0,-100),
+                new CANNON.Vec3(0,0,0),
+            )
         }
-	}
+    }
 
     // 이벤트
     window.addEventListener('resize', setSize);
-    window.addEventListener('click', () => {
-		const mySphere = new MySphere({
-				scene,
-				cannonWorld,
-				geometry: sphereGeometry,
-				material: sphereMaterial,
-				x: (Math.random() - 0.5) * 2,
-				y: Math.random() * 5 + 2,
-				z: (Math.random() - 0.5) * 2,
-				scale: Math.random() + 0.2,
-			});
+    window.addEventListener('click', (e) => {
+        mouse.x = e.clientX / canvas.clientWidth * 2 -1;
+        mouse.y = e.clientY / canvas.clientHeight * 2 -1;
 
-		spheres.push(mySphere);
-		mySphere.cannonBody.addEventListener('collide', collide);
+        checkIntersects();
     });
 
-    const btn = document.createElement('button');
-    btn.style.cssText = 'position: absolute; left: 20px; top: 20px; font-size: 20px';
-    btn.innerHTML = '삭제';
-    document.body.append(btn);
-
-    btn.addEventListener('click', () => {
-       spheres.forEach(item => {
-           item.cannonBody.removeEventListener('collide', collide);
-           scene.remove(item.mesh);
-           cannonWorld.removeBody(item.cannonBody);
-       })
-    });
 
     draw();
 }
