@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import * as CANNON from 'cannon-es';
 import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
 import {MySphere} from "./mySphere";
+import {color} from "three/examples/jsm/nodes/shadernode/ShaderNodeBaseElements";
 
 // ----- 주제: cannon.js 기본 세팅
 
@@ -63,8 +64,8 @@ export default function example() {
         defaultMaterial,
         defaultMaterial,
         {
-            friction: 0.8,
-            restitution: 0.3
+            friction: 0,
+            restitution: 0
         }
     );
     cannonWorld.defaultContactMaterial = defaultContactMaterial;
@@ -148,7 +149,7 @@ export default function example() {
     // 이벤트
     window.addEventListener('resize', setSize);
     window.addEventListener('click', () => {
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 100; i++) {
             const mySphere = new MySphere({
                 scene,
                 cannonWorld,
@@ -159,8 +160,8 @@ export default function example() {
                 z: (Math.random() - 0.5) * 2,
                 scale: Math.random() + 0.2,
             });
-
             spheres.push(mySphere);
+            console.log(spheres.length)
             mySphere.cannonBody.addEventListener('collide', collide);
         }
     });

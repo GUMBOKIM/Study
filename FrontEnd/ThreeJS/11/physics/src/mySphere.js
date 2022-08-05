@@ -8,12 +8,15 @@ import {
     Vec3
 } from 'cannon-es';
 
+const color = ['red', 'blue', 'green', 'white', 'purple']
+
 export class MySphere {
     constructor(info) {
         this.scene = info.scene;
         this.cannonWorld = info.cannonWorld;
         this.geometry = info.geometry;
-        this.material = info.material;
+        this.material = info.material.clone();
+        this.material.color.set(color[parseInt(Math.random() * 5)]);
         this.x = info.x;
         this.y = info.y;
         this.z = info.z;
