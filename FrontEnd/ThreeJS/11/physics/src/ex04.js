@@ -53,8 +53,8 @@ export default function example() {
     const cannonWorld = new CANNON.World();
     cannonWorld.gravity.set(0, -10, 0);
 
-	// Performance Setting
-	cannonWorld.allowSleep = true;
+    // Performance Setting
+    cannonWorld.allowSleep = true;
 
     // Contact Material
     const defaultMaterial = new CANNON.Material('default');
@@ -106,7 +106,7 @@ export default function example() {
     floorMesh.receiveShadow = true;
     scene.add(floorMesh);
 
-	let spheres = [];
+    let spheres = [];
     const sphereGeometry = new THREE.SphereGeometry(0.5);
     const sphereMaterial = new THREE.MeshStandardMaterial({
         color: 'seagreen'
@@ -120,10 +120,10 @@ export default function example() {
 
         cannonWorld.step(1 / 120, delta, 3);
 
-		spheres.forEach(item => {
-			item.mesh.position.copy(item.cannonBody.position);
-			item.mesh.quaternion.copy(item.cannonBody.quaternion);
-		})
+        spheres.forEach(item => {
+            item.mesh.position.copy(item.cannonBody.position);
+            item.mesh.quaternion.copy(item.cannonBody.quaternion);
+        })
 
         renderer.render(scene, camera);
         renderer.setAnimationLoop(draw);
@@ -138,31 +138,33 @@ export default function example() {
 
     const sound = new Audio('/sounds/boing.mp3');
 
-	function collide(e) {
+    function collide(e) {
         const velocity = e.contact.getImpactVelocityAlongNormal();
-        if(velocity > 3){
-        sound.currentTime = 0;
-		sound.play();
+        if (velocity > 3) {
+            sound.currentTime = 0;
+            sound.play();
         }
-	}
+    }
 
     // 이벤트
     window.addEventListener('resize', setSize);
-    window.addEventListener('click', () => {
-        for (let i = 0; i < 100; i++) {
-            const mySphere = new MySphere({
-                scene,
-                cannonWorld,
-                geometry: sphereGeometry,
-                material: sphereMaterial,
-                x: (Math.random() - 0.5) * 2,
-                y: Math.random() * 5 + 2,
-                z: (Math.random() - 0.5) * 2,
-                scale: Math.random() + 0.2,
-            });
-            spheres.push(mySphere);
-            console.log(spheres.length)
-            mySphere.cannonBody.addEventListener('collide', collide);
+    window.addEventListener('click', (event) => {
+        if (event.target !== event.currentTarget) {
+            for (let i = 0; i < 10; i++) {
+                const mySphere = new MySphere({
+                    scene,
+                    cannonWorld,
+                    geometry: sphereGeometry,
+                    material: sphereMaterial,
+                    x: (Math.random() - 0.5) * 2,
+                    y: Math.random() * 5 + 2,
+                    z: (Math.random() - 0.5) * 2,
+                    scale: Math.random() + 0.2,
+                });
+                spheres.push(mySphere);
+                console.log(spheres.length)
+                mySphere.cannonBody.addEventListener('collide', collide);
+            }
         }
     });
 
@@ -172,11 +174,11 @@ export default function example() {
     document.body.append(btn);
 
     btn.addEventListener('click', () => {
-       spheres.forEach(item => {
-           item.cannonBody.removeEventListener('collide', collide);
-           scene.remove(item.mesh);
-           cannonWorld.removeBody(item.cannonBody);
-       })
+        spheres.forEach(item => {
+            item.cannonBody.removeEventListener('collide', collide);
+            scene.remove(item.mesh);
+            cannonWorld.removeBody(item.cannonBody);
+        })
     });
 
     draw();

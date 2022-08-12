@@ -43,7 +43,7 @@ export default function example() {
 
 	// Mesh
 	const geometry = new THREE.BufferGeometry();
-	const count = 1000;
+	const count = 50000000;
 	const positions = new Float32Array(count * 3);
 	for (let i = 0; i < positions.length; i++) {
 		positions[i] = 10 * (Math.random() - 0.5);
