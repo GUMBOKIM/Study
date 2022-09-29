@@ -55,3 +55,6 @@ const findAdjacentStack = (stack) => {
     if (stackCount === stack) return 1;
     return stack + 1;
 }
+
+console.log(solution(
+    4, [[1, 3], [1, 2], [3, 6], [3, -1], [4, 5], [2, -1], [3, -1], [1, -1]]))
