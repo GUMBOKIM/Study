@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>D3</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+  <svg width="500px" height="500px">
+      <g>
+          <circle cy="50" cx="50" r="30"/>
+          <circle cy="150" cx="150" r="30"/>
+          <circle cy="250" cx="250" r="30"/>
+          <circle cy="350" cx="350" r="30"/>
+          <rect x="200" y="50" width="100" height="100" style="fill:chocolate; stroke: black;"/>
+      </g>
+      <text x="400" y="400">hello world</text>
+  </svg>
+  <div class="canvas"></div>
+<script>
+    const canvas = d3.select('.canvas');
+
+    const svg = canvas.append('svg')
+    .attr('height', 1000)
+    .attr('width', 1000)
+
+    svg.append('text')
+    .attr('x', 200)
+    .attr('y', 200)
+    .text('hello world')
+    .style('font-weight', 500)
+
+    svg.append('rect')
+    .attr('width', 200)
+    .attr('height', 200)
+    .attr('x',300)
+    .attr('y',300)
+</script>
+</body>
+</html>
