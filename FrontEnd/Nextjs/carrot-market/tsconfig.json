@@ -20,6 +20,12 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
+      "@libs/*": [
+        "libs/*"
+      ],
+      "@components/*": [
+        "components/*"
+      ]
     }
   },
   "include": [
