@@ -1,8 +1,6 @@
 import {createMachine, send} from "xstate";
 import Engine from "./Engine";
 import {Transmission} from "./Transmission";
-import ClutchPedal from "./ClutchPedal";
-import {AcceleratePedal} from "./AcceleratePedal";
 
 const Car = createMachine({
         id: "Car",
@@ -10,27 +8,35 @@ const Car = createMachine({
             speed: 0
         },
         initial: "Off",
+        invoke: [
+            {
+                id: "Engine",
+                src: Engine
+            },
+            {
+                id: "Transmission",
+                src: Transmission,
+                data: {}
+            }
+        ],
         states: {
             Off: {
                 on: {
                     TurnOn: {
                         target: "On",
-                        actions: [(context, event, meta) => {
-                            console.log(meta.state.children.Engine);
-                            send((context, event) => (
-                                {type: 'TurnOn'}
-                            ), {to: 'Engine'})
-                        }]
                     }
-                }
+                },
+                entry: [
+                    send({type: "TurnOff"}, {to: "Engine"})
+                ]
             },
             On: {
-                entry: (context, event, meta) => {
-                    console.log(meta.state.children.Engine);
-                },
+                entry: [
+                    send({type: "TurnOn"}, {to: "Engine"})
+                ],
                 on: {
                     TurnOff: {
-                        target: "Off",
+                        target: "Off"
                     },
                     PushAccelPedal: {
                         actions: (context, event, meta) => {
@@ -58,29 +64,27 @@ const Car = createMachine({
                             console.log(context);
                             console.log(event);
                             console.log(meta);
-                        }
+                        },
                     },
                 },
             }
         },
-        invoke: [
-            {
-                id: "Engine",
-                src: Engine
-            },
-            {
-                id: "Transmission",
-                src: Transmission,
-            },
-            {
-                id: "ClutchPedal",
-                src: ClutchPedal
-            },
-            {
-                id: "AcceleratePedal",
-                src: AcceleratePedal
+        on: {
+            Monitoring: {
+                actions: (context, event, meta) => {
+                    console.log("Monitoring");
+                    console.log(meta.state.children.Engine._state.context);
+                    console.log("Monitoring");
+                }
             }
-        ]
+        }
+    },
+    {
+        actions: {
+            Monitoring: () => {
+
+            }
+        }
     }
 )
 

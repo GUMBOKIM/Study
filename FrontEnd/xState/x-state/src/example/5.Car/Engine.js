@@ -11,7 +11,10 @@ const Engine = createMachine({
         Off: {
             on: {
                 TurnOn: {
-                    target: "PrepareOn"
+                    target: "PrepareOn",
+                    actions: () => {
+                        console.log("Engine Turn On")
+                    }
                 },
             },
             entry: assign({
@@ -26,12 +29,23 @@ const Engine = createMachine({
             },
             entry: assign({
                 rpm: 100
-            })
+            }),
+            on: {
+                TurnOff: {
+                    target: "PrepareOff",
+                    actions: () => {
+                        console.log("Engine Turn Off")
+                    }
+                }
+            },
         },
         On: {
             on: {
                 TurnOff: {
-                    target: "PrepareOff"
+                    target: "PrepareOff",
+                    actions: () => {
+                        console.log("Engine Turn Off")
+                    }
                 }
             },
             entry: assign({
@@ -42,6 +56,14 @@ const Engine = createMachine({
             after: {
                 1000: {
                     target: 'Off',
+                }
+            },
+            on: {
+                TurnOn: {
+                    target: "PrepareOn",
+                    actions: () => {
+                        console.log("Engine Turn On")
+                    }
                 }
             },
             entry: assign({
