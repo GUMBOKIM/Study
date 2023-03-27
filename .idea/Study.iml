@@ -12,5 +12,6 @@
     <orderEntry type="library" name="react-dom" level="application" />
     <orderEntry type="library" name="react" level="application" />
     <orderEntry type="library" name="prop-types" level="application" />
+    <orderEntry type="library" name="gsap" level="application" />
   </component>
 </module>
