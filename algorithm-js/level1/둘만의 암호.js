@@ -1,20 +1,16 @@
 function solution(s, skip, index) {
-    const alphabets = new Array(24);
-    // 소문자 a는 97, 소문자 z는 122
-    for (let i = 0; i <= 24; i++) alphabets[i] = String.fromCharCode(i + 97);
-    const filteredAlphabets = alphabets.filter(alphabet => !skip.includes(alphabet));
-    const filteredAlphabetsLength = filteredAlphabets.length;
-    console.log(filteredAlphabets);
-    const result = s.split("").map(char => {
-        let alphaIndex = filteredAlphabets.indexOf(char) + index;
-        while(alphaIndex >= filteredAlphabetsLength){
-            alphaIndex = alphaIndex - filteredAlphabetsLength;
+    var answer = '';
+    const skipCode = skip.split('').map(c => c.charCodeAt(0))
+    const converted = s.split('').map(c => {
+        let convert = c.charCodeAt(0)
+        for (let i = 0; i < index; i++) {
+            convert++;
+            while (skipCode.includes(convert)) convert++;
+            if (convert == 'z'.charCodeAt(0) + 1) convert = 'a'.charCodeAt(0)
+            while (skipCode.includes(convert)) convert++;
         }
-        return filteredAlphabets[alphaIndex];
-    }).join("");
-    console.log(result);
-    return result;
+        return convert
+    })
+    answer = String.fromCharCode(...converted)
+    return answer;
 }
-
-console.log(solution("aukks",	"wbqd",	5));
-

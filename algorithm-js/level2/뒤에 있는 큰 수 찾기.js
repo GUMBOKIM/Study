@@ -1,15 +1,11 @@
 function solution(numbers) {
-    const answer = [];
+    const answer = Array(numbers.length).fill(-1);
+    const stack = [];
     for (let i = 0; i < numbers.length; i++) {
-        const number = numbers[i];
-        let result = -1;
-        for (let j = i + 1; j < numbers.length; j++) {
-            if (numbers[j] > number) {
-                result = numbers[j];
-                break;
-            }
+        while (stack && numbers[stack.at(-1)] < numbers[i]) {
+            answer[stack.pop()] = numbers[i];
         }
-        answer.push(result);
+        stack.push(i);
     }
     return answer;
 }
