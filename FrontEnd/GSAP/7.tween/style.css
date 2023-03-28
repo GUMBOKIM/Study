@@ -1,0 +1,28 @@
+body{
+    background: gray;
+}
+.orange{
+    width: 100px;
+    height: 100px;
+    background: orange;
+}
+
+#controller{
+    display:flex;
+    margin: 50px;
+
+}
+#controller > button{
+    background: black;
+    padding: 5px 10px;
+    color: #fff;
+    font-size: 30px;
+    border-radius: 10px;
+    cursor:pointer;
+}
+
+#controller button:focus {
+    outline:none;
+    background: white;
+    color: black;
+}
