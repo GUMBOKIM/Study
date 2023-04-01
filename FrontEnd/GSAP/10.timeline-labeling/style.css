@@ -1,0 +1,30 @@
+body{
+    display:flex;
+    justify-content: center;
+}
+
+svg{
+    transform:scale(0.7)
+}
+#controller{
+    display:flex;
+    margin: 50px;
+    position: absolute;
+    left: 0;
+    top:10vh;
+
+}
+#controller > button{
+    background: black;
+    padding: 5px 10px;
+    color: #fff;
+    font-size: 30px;
+    border-radius: 10px;
+    cursor:pointer;
+}
+
+#controller button:focus {
+    outline:none;
+    background: white;
+    color: black;
+}
