@@ -1,14 +1,15 @@
 import React from 'react';
-import Background from "./component/Background";
-import StandbyPhrase from "./component/StandbyPhrase";
+import VideoCard from "./component/VideoCard";
+import VideoCard1 from "./component/VideoCard1";
 
 function App() {
     return (
         <>
-            <Background/>
-            <StandbyPhrase/>
+            <VideoCard/>
+            <span>Dithering</span>
+            <VideoCard1/>
+            <span>Noise</span>
         </>
-
     );
 }
 
