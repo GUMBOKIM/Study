@@ -1,11 +1,18 @@
-import {Canvas} from "@react-three/fiber";
-import {Box} from "./Box";
+import {Environment, OrbitControls, Stats} from '@react-three/drei'
+import {Canvas, useLoader} from '@react-three/fiber'
+import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader'
 
-export const App = () => {
+export default function App() {
+    const gltf = useLoader(GLTFLoader, './models/monkey.glb')
+
     return (
-        <Canvas camera={{position: [0, 0, 2]}}>
-            <Box position={[-0.75, 0, 0]} wireframe name="A"/>
-            <Box position={[0.75, 0, 0]} name="B"/>
+        <Canvas camera={{position: [-0.5, 1, 2]}}>
+            <Environment files="./img/venice_sunset_4k.hdr" background blur={0}/>
+            <directionalLight position={[3.3, 1.0, 4.4]} intensity={10}/>
+            <primitive object={gltf.scene} position={[0, 1, 0]}/>
+            <OrbitControls target={[0, 1, 0]} autoRotate/>
+            <axesHelper args={[5]}/>
+            <Stats/>
         </Canvas>
     )
 }
